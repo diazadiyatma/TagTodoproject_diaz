@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Search bar -->
+        <EditText
+            android:id="@+id/etSearchTags"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Search tags..."
+            android:drawableStart="@android:drawable/ic_menu_search"
+            android:background="@drawable/rounded_edittext"
+            android:padding="8dp"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/darker_gray"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Container untuk semua tag -->
+        <LinearLayout
+            android:id="@+id/tagsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+    </LinearLayout>
+</ScrollView>

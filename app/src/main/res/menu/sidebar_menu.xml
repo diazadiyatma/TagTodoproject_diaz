@@ -1,0 +1,67 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Group 1: Profile dan Home -->
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_user_profile"
+            android:title="User Profile"
+            android:icon="@drawable/user_svgrepo_com" />
+
+        <item
+            android:id="@+id/nav_home"
+            android:title="Home"
+            android:icon="@drawable/home_svg" />
+
+        <item
+            android:id="@+id/nav_work"
+            android:title="Work"
+            android:icon="@drawable/work_case" />
+
+        <item
+            android:id="@+id/nav_school"
+            android:title="School"
+            android:icon="@drawable/school_svg" />
+
+        <item
+            android:id="@+id/nav_excercise"
+            android:title="Exercise"
+            android:icon="@drawable/excercise_svg" />
+
+        <item
+            android:id="@+id/nav_finance"
+            android:title="Finance"
+            android:icon="@drawable/finance_minimalist" />
+    </group>
+
+    <!-- Spacer menggunakan group kosong -->
+    <group android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_divider_1"
+            android:title=" "
+            android:enabled="false" />
+    </group>
+
+    <!-- Group 2: Fitur tambahan -->
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_tags"
+            android:title="Tags"
+            android:icon="@drawable/tags_svgrepo_com" />
+
+        <item
+            android:id="@+id/nav_trash"
+            android:title="Trash"
+            android:icon="@drawable/trash_svgrepo_com" />
+
+        <item
+            android:id="@+id/nav_completed"
+            android:title="Completed"
+            android:icon="@drawable/circle_check_filled_svgrepo_com" />
+
+        <item
+            android:id="@+id/nav_calendar"
+            android:title="Calendar"
+            android:icon="@drawable/calender_svgrepo_com" />
+    </group>
+
+</menu>
