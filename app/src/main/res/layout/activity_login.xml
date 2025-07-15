@@ -14,21 +14,23 @@
         android:layout_width="160dp"
         android:layout_height="160dp"
         android:src="@drawable/logodiaz"
+        android:contentDescription="Logo"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="40dp" />
+        android:layout_marginTop="48dp" />
 
-    <!-- Card View untuk form -->
+    <!-- Login Card -->
     <androidx.cardview.widget.CardView
         android:id="@+id/loginCard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="24dp"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="24dp"
         app:cardCornerRadius="24dp"
         app:cardElevation="8dp"
         app:layout_constraintTop_toBottomOf="@id/logo"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -36,16 +38,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="24dp">
+            android:padding="24dp"
+            android:gravity="center_horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="LOGIN"
-                android:textSize="20sp"
+                android:text="Login"
+                android:textSize="24sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/font_poppins"
                 android:layout_marginBottom="16dp"/>
 
             <EditText
@@ -53,9 +56,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Email"
-                android:text="diazotto@gmail.com"
                 android:inputType="textEmailAddress"
-                android:textSize="15sp"
+                android:textSize="16sp"
+                android:fontFamily="@font/font_poppins"
                 android:backgroundTint="@color/black" />
 
             <EditText
@@ -64,10 +67,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:hint="Password"
-                android:text="ottodigital"
                 android:inputType="textPassword"
-                android:textSize="15sp"
+                android:textSize="16sp"
+                android:fontFamily="@font/font_poppins"
                 android:backgroundTint="@color/black" />
+
+            <!-- ✅ Checkbox Show Password -->
+            <CheckBox
+                android:id="@+id/cbShowPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Show Password"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/font_poppins"
+                android:textSize="14sp"/>
 
             <Button
                 android:id="@+id/btnLogin"
@@ -76,22 +90,20 @@
                 android:layout_marginTop="24dp"
                 android:text="Login"
                 android:textColor="@color/white"
+                android:textSize="16sp"
+                android:fontFamily="@font/font_poppins"
                 android:backgroundTint="@color/yellowgold" />
 
+            <TextView
+                android:id="@+id/tvCreateAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Create account"
+                android:textColor="@color/yellowgold"
+                android:fontFamily="@font/font_poppins"
+                android:textStyle="bold"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
-    <!-- Register Text -->
-    <TextView
-        android:id="@+id/tvRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Don't have an account? Register here"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:layout_marginTop="12dp"
-        app:layout_constraintTop_toBottomOf="@id/loginCard"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

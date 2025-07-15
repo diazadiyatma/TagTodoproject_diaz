@@ -9,7 +9,7 @@ import com.example.tagtodoproject.model.UserEntity
 
 @Database(
     entities = [UserEntity::class, TaskEntity::class],
-    version = 2, // ✅ Naikkan versi DB ke 2
+    version = 3, // ✅ Versi DB dinaikkan untuk field 'priority'
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -28,7 +28,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "tagtodo_database"
                 )
-                    .fallbackToDestructiveMigration() // ✅ Tambahkan ini
+                    .fallbackToDestructiveMigration() // ⚠️ Gunakan hanya untuk development
                     .build()
                 INSTANCE = instance
                 instance

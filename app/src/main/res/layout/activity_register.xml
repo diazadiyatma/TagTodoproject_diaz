@@ -38,12 +38,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="REGISTER"
+                    android:text="Register"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="16dp" />
+                    android:layout_marginBottom="16dp"
+                    android:fontFamily="@font/font_poppins" />
 
                 <EditText
                     android:id="@+id/etUsername"
@@ -52,7 +53,8 @@
                     android:hint="Username"
                     android:inputType="textPersonName"
                     android:textSize="15sp"
-                    android:backgroundTint="@color/black" />
+                    android:backgroundTint="@color/black"
+                    android:fontFamily="@font/font_poppins" />
 
                 <EditText
                     android:id="@+id/etEmail"
@@ -62,7 +64,8 @@
                     android:inputType="textEmailAddress"
                     android:layout_marginTop="12dp"
                     android:textSize="15sp"
-                    android:backgroundTint="@color/black" />
+                    android:backgroundTint="@color/black"
+                    android:fontFamily="@font/font_poppins" />
 
                 <EditText
                     android:id="@+id/etPassword"
@@ -72,7 +75,8 @@
                     android:inputType="textPassword"
                     android:layout_marginTop="12dp"
                     android:textSize="15sp"
-                    android:backgroundTint="@color/black" />
+                    android:backgroundTint="@color/black"
+                    android:fontFamily="@font/font_poppins" />
 
                 <EditText
                     android:id="@+id/etConfirmPassword"
@@ -82,7 +86,19 @@
                     android:inputType="textPassword"
                     android:layout_marginTop="12dp"
                     android:textSize="15sp"
-                    android:backgroundTint="@color/black" />
+                    android:backgroundTint="@color/black"
+                    android:fontFamily="@font/font_poppins" />
+
+                <!-- ✅ Show Password Checkbox -->
+                <CheckBox
+                    android:id="@+id/cbShowPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Show Password"
+                    android:layout_marginTop="8dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/font_poppins"
+                    android:textSize="13sp" />
 
                 <EditText
                     android:id="@+id/etContact"
@@ -92,7 +108,8 @@
                     android:inputType="phone"
                     android:layout_marginTop="12dp"
                     android:textSize="15sp"
-                    android:backgroundTint="@color/black" />
+                    android:backgroundTint="@color/black"
+                    android:fontFamily="@font/font_poppins" />
 
                 <EditText
                     android:id="@+id/etLocation"
@@ -102,35 +119,35 @@
                     android:inputType="text"
                     android:layout_marginTop="12dp"
                     android:textSize="15sp"
-                    android:backgroundTint="@color/black" />
+                    android:backgroundTint="@color/black"
+                    android:fontFamily="@font/font_poppins" />
 
-                <!-- Upload Photo -->
-                <TextView
-                    android:layout_width="wrap_content"
+                <AutoCompleteTextView
+                    android:id="@+id/etGender"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Upload Profile Photo"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:layout_marginTop="16dp" />
+                    android:hint="Gender"
+                    android:inputType="none"
+                    android:layout_marginTop="12dp"
+                    android:textSize="15sp"
+                    android:backgroundTint="@color/black"
+                    android:fontFamily="@font/font_poppins"
+                    android:dropDownHeight="wrap_content"
+                    android:dropDownVerticalOffset="8dp" />
 
-                <ImageView
-                    android:id="@+id/ivProfilePreview"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginTop="8dp"
-                    android:src="@drawable/account_avatar_profile_user_svgrepo_com"
-                    android:scaleType="centerCrop"
-                    android:background="@drawable/account_avatar_profile_user_svgrepo_com"
-                    android:padding="4dp" />
-
-                <Button
-                    android:id="@+id/btnUploadPhoto"
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/etBirthDate"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Choose Photo"
-                    android:layout_marginTop="8dp"
-                    android:backgroundTint="@color/yellowgold"
-                    android:textColor="@color/white" />
+                    android:hint="Birth Date"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:inputType="none"
+                    android:layout_marginTop="12dp"
+                    android:textSize="15sp"
+                    android:drawableEnd="@drawable/ic_calendar"
+                    android:backgroundTint="@color/black"
+                    android:fontFamily="@font/font_poppins" />
 
                 <!-- Register Button -->
                 <Button
@@ -140,7 +157,9 @@
                     android:layout_marginTop="24dp"
                     android:text="Register"
                     android:textColor="@color/white"
-                    android:backgroundTint="@color/yellowgold" />
+                    android:textSize="16sp"
+                    android:backgroundTint="@color/yellowgold"
+                    android:fontFamily="@font/font_poppins" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -152,6 +171,7 @@
             android:layout_marginTop="16dp"
             android:text="Already have an account? Login here"
             android:textColor="@color/black"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:fontFamily="@font/font_poppins" />
     </LinearLayout>
 </ScrollView>

@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray"
+    android:background="@color/white"
     android:padding="16dp">
 
     <LinearLayout
@@ -21,7 +21,8 @@
             android:padding="8dp"
             android:textColor="@android:color/black"
             android:textColorHint="@android:color/darker_gray"
-            android:layout_marginBottom="12dp" />
+            android:layout_marginBottom="12dp"
+            android:fontFamily="@font/font_poppins" />
 
         <!-- Container untuk semua tag -->
         <LinearLayout

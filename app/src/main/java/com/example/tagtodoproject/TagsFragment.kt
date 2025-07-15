@@ -68,7 +68,7 @@ class TagsFragment : Fragment() {
             val header = TextView(requireContext()).apply {
                 text = "#$tagName"
                 textSize = 18f
-                setTextColor(resources.getColor(R.color.white))
+                setTextColor(resources.getColor(R.color.black))
                 setPadding(0, 24, 0, 12)
             }
             tagsContainer.addView(header)

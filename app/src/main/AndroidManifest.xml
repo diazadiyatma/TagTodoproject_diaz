@@ -2,15 +2,24 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.tagtodoproject">
 
+    <!-- 🌐 Internet Permission -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- 📂 Storage Permissions (untuk akses media eksternal) -->
+    <!-- Untuk Android 12 dan sebelumnya -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- Untuk Android 13+ (API 33 ke atas) -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/logodiaz"
-        android:label="@string/app_name"
         android:roundIcon="@drawable/logodiaz"
+        android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.TagTodoproject">
 
-        <!-- Main Entry Point -->
+        <!-- 🔷 Launcher/Main Entry Point -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -20,7 +29,7 @@
             </intent-filter>
         </activity>
 
-        <!-- Auth Activities -->
+        <!-- 🔐 Authentication Activities -->
         <activity
             android:name=".authentication.LoginActivity"
             android:exported="false" />
@@ -28,7 +37,12 @@
             android:name=".authentication.RegisterActivity"
             android:exported="false" />
 
-        <!-- Other Activities -->
+        <!-- 🏠 Main Dashboard -->
+        <activity
+            android:name=".MainDashboardActivity"
+            android:exported="false" />
+
+        <!-- 📚 Additional Pages -->
         <activity
             android:name=".SideActivity"
             android:exported="false" />

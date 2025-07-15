@@ -1,30 +1,34 @@
 package com.example.tagtodoproject
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+
+import androidx.room.*
 import com.example.tagtodoproject.model.UserEntity
 
 @Dao
 interface UserDao {
 
-    // Insert user baru saat registrasi
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertUser(user: UserEntity)
+    suspend fun insertUser(user: UserEntity): Long
 
-    // Ambil user berdasarkan email
+    @Update
+    suspend fun updateUser(user: UserEntity)  // ✅ Untuk update user, termasuk photo URI
+
     @Query("SELECT * FROM users WHERE email = :email LIMIT 1")
     suspend fun getUserByEmail(email: String): UserEntity?
 
-    // Ambil user berdasarkan username
     @Query("SELECT * FROM users WHERE username = :username LIMIT 1")
     suspend fun getUserByUsername(username: String): UserEntity?
 
-    // Validasi login berdasarkan username/email dan password
-    @Query("SELECT * FROM users WHERE (username = :input OR email = :input) AND password = :password LIMIT 1")
+    @Query("""
+        SELECT * FROM users 
+        WHERE (username = :input OR email = :input) 
+        AND password = :password 
+        LIMIT 1
+    """)
     suspend fun login(input: String, password: String): UserEntity?
 
     @Query("SELECT * FROM users ORDER BY id DESC LIMIT 1")
     suspend fun getLatestUser(): UserEntity?
 
+    @Query("SELECT * FROM users")
+    suspend fun getAllUsers(): List<UserEntity>
 }

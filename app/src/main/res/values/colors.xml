@@ -22,5 +22,7 @@
     <color name="greysantuy">#BDBDBD</color>
     <color name="yellowgold"> #FBC02D</color>
     <color name="greensoft"> #51A687</color>
+    <color name="purple_200">#BB86FC</color>
+    <color name="teal_700">#018786</color>
 
 </resources>

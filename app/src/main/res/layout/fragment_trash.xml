@@ -1,18 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    android:background="@color/lightGrey">
+    android:background="@color/lightGrey"
+    android:fillViewport="true">
 
+    <!-- ✅ Bungkus dalam LinearLayout -->
     <LinearLayout
-        android:id="@+id/trashContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Dummy item task -->
-        <include layout="@layout/fragment_item_task" />
+        <LinearLayout
+            android:id="@+id/trashContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
 
+        <LinearLayout
+            android:id="@+id/emptyStateLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone"
+            android:paddingTop="48dp"
+            android:paddingBottom="48dp">
+
+            <ImageView
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:src="@drawable/delete_svgrepo"
+                android:tint="@color/gray" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Trash is empty"
+                android:textSize="16sp"
+                android:textColor="@color/gray"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/font_poppins" />
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

@@ -1,36 +1,46 @@
 package com.example.tagtodoproject
 
+import android.app.AlertDialog
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.tagtodoproject.authentication.LoginActivity
 import com.example.tagtodoproject.data.TaskEntity
 import com.example.tagtodoproject.viewmodel.TaskViewModel
 
 class TrashFragment : Fragment() {
 
     private lateinit var trashContainer: LinearLayout
+    private lateinit var emptyStateLayout: LinearLayout
     private val viewModel: TaskViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val view = inflater.inflate(R.layout.fragment_trash, container, false)
-        trashContainer = view.findViewById(R.id.trashContainer)
 
-        // ✅ Ambil userId dari SharedPreferences
-        val sharedPref = requireContext().getSharedPreferences("user_session", AppCompatActivity.MODE_PRIVATE)
+        // Ambil container & empty layout dari XML (pastikan di fragment_trash.xml sudah dibungkus dalam LinearLayout tunggal)
+        trashContainer = view.findViewById(R.id.trashContainer)
+        emptyStateLayout = view.findViewById(R.id.emptyStateLayout)
+
+        // Cek user ID dari SharedPreferences
+        val sharedPref = requireContext().getSharedPreferences("user_session", Context.MODE_PRIVATE)
         val userId = sharedPref.getInt("user_id", 0)
 
         if (userId == 0) {
-            Toast.makeText(requireContext(), "User belum login.", Toast.LENGTH_SHORT).show()
-        } else {
-            // ✅ Kirim userId ke ViewModel
-            viewModel.getTrash(userId).observe(viewLifecycleOwner) { tasks ->
-                renderTrash(tasks)
-            }
+            Toast.makeText(requireContext(), "Session expired. Silakan login ulang.", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(requireContext(), LoginActivity::class.java))
+            requireActivity().finish()
+            return view
+        }
+
+        // Observe data trash
+        viewModel.getTrash(userId).observe(viewLifecycleOwner) { tasks ->
+            renderTrash(tasks)
         }
 
         return view
@@ -40,30 +50,36 @@ class TrashFragment : Fragment() {
         trashContainer.removeAllViews()
 
         if (tasks.isEmpty()) {
-            val emptyText = TextView(requireContext())
-            emptyText.text = "No deleted tasks."
-            emptyText.setPadding(32, 32, 32, 32)
-            trashContainer.addView(emptyText)
+            emptyStateLayout.visibility = View.VISIBLE
             return
+        } else {
+            emptyStateLayout.visibility = View.GONE
         }
 
         for (task in tasks) {
-            val itemView = layoutInflater.inflate(R.layout.fragment_item_task, trashContainer, false)
+            val itemView = layoutInflater.inflate(R.layout.item_task_trash, trashContainer, false)
 
             val tvTaskName = itemView.findViewById<TextView>(R.id.tvTaskName)
             val tvTags = itemView.findViewById<TextView>(R.id.tvTags)
             val tvDate = itemView.findViewById<TextView>(R.id.tvDate)
-            val ivDelete = itemView.findViewById<ImageView>(R.id.ivDeleteItem)
+            val tvPriority = itemView.findViewById<TextView>(R.id.tvPriority)
+            val ivDeletePermanent = itemView.findViewById<ImageView>(R.id.ivDeletePermanent)
 
             tvTaskName.text = task.title
             tvTags.text = "#${task.tags}"
             tvDate.text = task.date
+            tvPriority.text = "Priority: ${task.priority}"
 
-            itemView.findViewById<CheckBox>(R.id.cbCompleted).visibility = View.GONE
-
-            ivDelete.setOnClickListener {
-                viewModel.delete(task)
-                Toast.makeText(requireContext(), "Task permanently deleted", Toast.LENGTH_SHORT).show()
+            ivDeletePermanent.setOnClickListener {
+                AlertDialog.Builder(requireContext())
+                    .setTitle("Delete Task")
+                    .setMessage("Are you sure you want to permanently delete this task?")
+                    .setPositiveButton("Delete") { _, _ ->
+                        viewModel.delete(task)
+                        Toast.makeText(requireContext(), "Task permanently deleted", Toast.LENGTH_SHORT).show()
+                    }
+                    .setNegativeButton("Cancel", null)
+                    .show()
             }
 
             trashContainer.addView(itemView)

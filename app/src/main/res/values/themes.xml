@@ -1,9 +1,32 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+
+    <!-- Base Theme using Material3 -->
     <style name="Base.Theme.TagTodoproject" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+        <!-- ✅ Ganti warna utama dari ungu ke biru -->
+        <item name="colorPrimary">@color/yellowgold</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/yellowgold</item>
+
+        <!-- ✅ Warna sekunder -->
+        <item name="colorSecondary">@color/yellowgold</item>
+        <item name="colorOnSecondary">@color/white</item>
+
+        <!-- ✅ Outline untuk TextInput -->
+        <item name="colorOutline">@color/yellowgold</item>
+
+        <!-- ✅ Status bar dan nav bar -->
+        <item name="android:statusBarColor" tools:targetApi="l">@android:color/transparent</item>
+        <item name="android:navigationBarColor" tools:targetApi="l">@android:color/white</item>
+
+        <!-- ✅ Warna dasar dan font -->
+        <item name="android:colorBackground">@color/white</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/black</item>
+        <item name="android:fontFamily">@font/font_poppins</item>
+
     </style>
 
     <style name="Theme.TagTodoproject" parent="Base.Theme.TagTodoproject" />
+
 </resources>

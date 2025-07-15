@@ -7,124 +7,60 @@
     android:padding="16dp"
     android:background="@color/lightGrey">
 
-    <!-- Header -->
-    <LinearLayout
+    <!-- ✅ Judul kategori -->
+    <TextView
+        android:id="@+id/tvCategoryTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:padding="8dp"
-        android:background="@color/white"
-        android:layout_marginBottom="8dp">
-
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/finance_minimalist" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Finance"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@color/darkgrey"
-            android:layout_marginStart="8dp"/>
-    </LinearLayout>
-
-    <!-- Add Task -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:background="@drawable/rounded_edittext"
-        android:padding="12dp"
-        android:layout_marginBottom="16dp">
-
-        <EditText
-            android:id="@+id/etTask"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="+ Add task"
-            android:background="@android:color/transparent"
-            android:textSize="16sp"
-            android:textColor="#000000"/>
-
-        <ImageView
-            android:id="@+id/ivDatePicker"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/date_svgrepo"
-            android:layout_marginStart="8dp"/>
-    </LinearLayout>
-
-    <!-- Enter Tags -->
-    <EditText
-        android:id="@+id/etTags"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter Tags"
-        android:background="@drawable/rounded_edittext"
-        android:textSize="16sp"
-        android:textColor="#000000"
-        android:layout_marginBottom="16dp"/>
-
-    <!-- Confirm Task -->
-    <Button
-        android:id="@+id/btnConfirm"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Confirm Task"
-        android:backgroundTint="@color/yellowgold"
-        android:textColor="@android:color/white"
+        android:text="Finance"
+        android:fontFamily="@font/font_poppins"
+        android:textAlignment="center"
+        android:textSize="20sp"
         android:textStyle="bold"
-        android:layout_marginBottom="24dp"/>
+        android:textColor="#000000"
+        android:layout_marginBottom="16dp" />
 
-    <!-- Empty State -->
-    <LinearLayout
-        android:id="@+id/emptyStateLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="24dp">
-
-        <ImageView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:src="@drawable/finance_minimalist"
-            android:layout_marginBottom="24dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="All tasks are completed"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_marginBottom="8dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Take it easy"
-            android:textSize="16sp"
-            android:textStyle="bold"/>
-    </LinearLayout>
-
-    <!-- Task List -->
+    <!-- 📝 Task List Container -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:fillViewport="true">
 
         <LinearLayout
             android:id="@+id/taskContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"/>
+            android:orientation="vertical">
+
+            <!-- Dummy preview item (optional) -->
+            <include layout="@layout/fragment_item_task" />
+        </LinearLayout>
     </ScrollView>
 
+    <!-- 😴 Empty state if no task -->
+    <LinearLayout
+        android:id="@+id/emptyStateLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_marginTop="16dp">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/finance_minimalist"
+            android:contentDescription="Empty" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No tasks available in Finance category"
+            android:textSize="16sp"
+            android:fontFamily="@font/font_poppins"
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginTop="12dp" />
+    </LinearLayout>
 </LinearLayout>

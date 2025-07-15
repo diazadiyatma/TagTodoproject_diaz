@@ -11,5 +11,8 @@ data class UserEntity(
     val password: String,
     val contact: String,
     val location: String,
-    val profilePhotoUri: String? = null // bisa disimpan sebagai path/file uri
+    val birthDate: String,
+    val gender: String,
+    val profilePhotoUri: String?,
+    val bio: String? = null // ✅ Tambahan
 )
