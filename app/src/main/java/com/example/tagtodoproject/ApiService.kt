@@ -1,6 +1,6 @@
 package com.example.tagtodoproject.api
 
-import com.example.tagtodoproject.model.User
+import com.google.firebase.firestore.auth.User
 import retrofit2.Call
 import retrofit2.http.GET
 

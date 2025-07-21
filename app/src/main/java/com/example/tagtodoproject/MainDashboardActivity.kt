@@ -10,6 +10,7 @@ import com.example.tagtodoproject.AddGlobalTaskFragment
 import com.example.tagtodoproject.HomeFragment
 import com.example.tagtodoproject.ProfileFragment
 import com.example.tagtodoproject.ui.menu.MenuFragment
+import com.google.android.material.navigation.NavigationBarView
 
 class MainDashboardActivity : AppCompatActivity() {
 
@@ -18,7 +19,6 @@ class MainDashboardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // ✅ Cek apakah user sudah login
         val sharedPref = getSharedPreferences("user_session", MODE_PRIVATE)
         val userId = sharedPref.getInt("user_id", -1)
         if (userId == -1) {
@@ -27,40 +27,45 @@ class MainDashboardActivity : AppCompatActivity() {
             return
         }
 
-        // ✅ Set layout
         binding = ActivityMainDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val username = intent.getStringExtra("username") ?: "Guest"
-        val openMenu = intent.getBooleanExtra("open_menu", false)
+        val destination = intent.getStringExtra("destination") ?: "menu"
 
-        // ✅ Fragment pertama
+        // Set default fragment
         if (savedInstanceState == null) {
-            if (openMenu) {
-                replaceFragment(MenuFragment())
-            } else {
-                replaceFragment(HomeFragment())
+            val startFragment: Fragment = when (destination) {
+                "add_task" -> AddGlobalTaskFragment()
+                "menu" -> MenuFragment()
+                else -> MenuFragment()
             }
+            replaceFragment(startFragment)
         }
 
-        // ➕ Add Task
+        // FAB Add Task
         binding.fabAddTask.setOnClickListener {
             replaceFragment(AddGlobalTaskFragment())
         }
 
-        // 📋 Menu
-        binding.fabMenu.setOnClickListener {
-            replaceFragment(MenuFragment())
-        }
-
-        // 👤 Profile
-        binding.fabProfile.setOnClickListener {
-            val profileFragment = ProfileFragment().apply {
-                arguments = Bundle().apply {
-                    putString("username", username)
+        // Bottom Nav: Home & Profile only (FAB dihandle terpisah)
+        binding.bottomNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> {
+                    replaceFragment(MenuFragment())
+                    true
                 }
+                R.id.nav_profile -> {
+                    val profileFragment = ProfileFragment().apply {
+                        arguments = Bundle().apply {
+                            putString("username", username)
+                        }
+                    }
+                    replaceFragment(profileFragment)
+                    true
+                }
+                else -> false
             }
-            replaceFragment(profileFragment)
         }
     }
 

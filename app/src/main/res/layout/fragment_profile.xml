@@ -6,31 +6,20 @@
     android:layout_height="match_parent"
     android:background="@color/lightGrey"
     android:fillViewport="true"
-    android:padding="24dp">
+    android:paddingTop="24dp"
+    android:paddingBottom="32dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <!-- ✏️ Edit icon -->
-        <ImageView
-            android:id="@+id/ivEditProfile"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="4dp"
-            android:contentDescription="Edit profile"
-            android:padding="4dp"
-            android:src="@drawable/ic_edit" />
+        android:layout_height="wrap_content"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp">
 
         <!-- 👤 Header: Avatar + Username + Email -->
         <LinearLayout
             android:id="@+id/headerLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ivEditProfile"
-            android:layout_marginTop="16dp"
             android:orientation="horizontal"
             android:gravity="center_vertical">
 
@@ -93,8 +82,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/headerLayout"
             android:layout_marginTop="24dp"
-            android:orientation="vertical"
-            android:paddingEnd="8dp">
+            android:orientation="vertical">
 
             <include
                 android:id="@+id/itemContact"
@@ -117,13 +105,29 @@
                 layout="@layout/item_profile_input" />
         </LinearLayout>
 
+        <!-- ✏️ Edit Profile Button -->
+        <Button
+            android:id="@+id/btnEditProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/infoFieldsLayout"
+            android:layout_marginTop="24dp"
+            android:text="Edit Profile"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:fontFamily="@font/font_poppins"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/yellowgold"
+            android:paddingVertical="12dp"
+            android:paddingHorizontal="20dp" />
+
         <!-- 🚪 Logout Button -->
         <Button
             android:id="@+id/btnLogout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/infoFieldsLayout"
-            android:layout_marginTop="24dp"
+            android:layout_below="@id/btnEditProfile"
+            android:layout_marginTop="34dpdp"
             android:layout_marginBottom="24dp"
             android:text="Logout"
             android:textAllCaps="false"

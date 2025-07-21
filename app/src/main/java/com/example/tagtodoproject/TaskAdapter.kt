@@ -31,10 +31,12 @@ class TaskAdapter(
         val tvTags: TextView = view.findViewById(R.id.tvTags)
         val tvDate: TextView = view.findViewById(R.id.tvDate)
         val ivDelete: ImageView = view.findViewById(R.id.ivDeleteItem)
+        val ivCategoryIcon: ImageView = view.findViewById(R.id.ivCategoryIcon)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.fragment_item_task, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.fragment_item_task, parent, false)
         return TaskViewHolder(view)
     }
 
@@ -42,21 +44,33 @@ class TaskAdapter(
         val task = tasks[position]
 
         holder.tvTaskName.text = task.title
-        holder.tvTags.text = task.tags
+        holder.tvTags.text = "${task.category} • ${task.priority}"
         holder.tvDate.text = task.date
 
-        // Checkbox logic
-        if (isReadOnly || isTrashMode) {
+        // 🔹 Set icon kategori
+        val iconRes = when (task.category.lowercase()) {
+            "work" -> R.drawable.work_case
+            "school" -> R.drawable.school_svg
+            "home" -> R.drawable.home_svg
+            "exercise" -> R.drawable.excercise_svg
+            "finance" -> R.drawable.finance_minimalist
+            else -> R.drawable.tags_svgrepo_com
+        }
+        holder.ivCategoryIcon.setImageResource(iconRes)
+
+        // 🔹 Checkbox logic
+        if (isTrashMode || isReadOnly) {
             holder.cbCompleted.visibility = View.GONE
         } else {
             holder.cbCompleted.visibility = View.VISIBLE
+            holder.cbCompleted.setOnCheckedChangeListener(null)
             holder.cbCompleted.isChecked = task.isCompleted
             holder.cbCompleted.setOnCheckedChangeListener { _, isChecked ->
                 onCheck?.invoke(task, isChecked)
             }
         }
 
-        // Delete icon logic
+        // 🔹 Delete icon logic
         if (isReadOnly) {
             holder.ivDelete.visibility = View.GONE
         } else {

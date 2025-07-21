@@ -3,20 +3,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp"
-    android:background="@android:color/white">
+    android:background="@color/white"
+    android:clipToPadding="false">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center">
+        android:paddingTop="24dp"
+        android:paddingBottom="24dp">
 
-        <!-- 🔹 Priority Summary Widget -->
+        <!-- 🔹 Title -->
+        <TextView
+            android:id="@+id/tvPriorityTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginBottom="12dp"
+            android:fontFamily="@font/font_poppins"
+            android:text="Priority Summary"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!-- 🔸 Priority Summary -->
         <androidx.cardview.widget.CardView
             android:id="@+id/widgetPrioritySummary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="24dp"
             app:cardCornerRadius="16dp"
             app:cardElevation="6dp"
@@ -24,26 +39,17 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="124dp"
                 android:orientation="vertical"
-                android:padding="16dp">
-
-                <TextView
-                    android:id="@+id/tvPriorityTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Priority Summary"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="#000000"
-                    android:layout_marginBottom="12dp"
-                    android:fontFamily="@font/font_poppins" />
+                android:padding="16dp"
+                android:gravity="center_vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:weightSum="3">
+                    android:weightSum="3"
+                    android:gravity="center_vertical">
 
                     <TextView
                         android:id="@+id/tvLowCount"
@@ -51,8 +57,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Low: 0"
+                        android:textStyle="bold"
                         android:textColor="#0099cc"
-                        android:textSize="14sp"
+                        android:textSize="16sp"
                         android:textAlignment="center"
                         android:fontFamily="@font/font_poppins" />
 
@@ -62,8 +69,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Medium: 0"
+                        android:textStyle="bold"
                         android:textColor="#ffbb33"
-                        android:textSize="14sp"
+                        android:textSize="16sp"
                         android:textAlignment="center"
                         android:fontFamily="@font/font_poppins" />
 
@@ -73,124 +81,203 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="High: 0"
+                        android:textStyle="bold"
                         android:textColor="#ff4444"
-                        android:textSize="14sp"
+                        android:textSize="16sp"
                         android:textAlignment="center"
                         android:fontFamily="@font/font_poppins" />
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- 🔹 Tags Task Widget -->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/widgetTags"
+        <!-- 🔸 Horizontal Card Menu -->
+        <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="6dp"
-            app:cardBackgroundColor="@android:color/white"
-            android:clickable="true"
-            android:focusable="true">
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:layout_marginBottom="0dp"
+            android:scrollbars="none"
+            android:clipToPadding="false">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:padding="16dp">
+                android:layout_width="wrap_content"
+                android:layout_height="160dp"
+                android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/tags_svgrepo_com"
-                    android:contentDescription="Tags Icon"
-                    android:layout_marginEnd="16dp" />
+                <!-- 🏷️ Tags -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/widgetTags"
+                    android:layout_width="160dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="12dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="6dp"
+                    app:cardBackgroundColor="@color/pink"
+                    android:clickable="true"
+                    android:focusable="true">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Tags Task"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/font_poppins" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/tags_svgrepo_com"
+                            app:tint="@android:color/white" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tags Task"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/white"
+                            android:textSize="16sp"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="@font/font_poppins" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- 🗂️ Category -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/widgetCategory"
+                    android:layout_width="160dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="12dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="6dp"
+                    app:cardBackgroundColor="@color/yellowgold"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/category_solid_svgrepo_com"
+                            app:tint="@android:color/white" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Category Task"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/white"
+                            android:textSize="16sp"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="@font/font_poppins" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- 🗑️ Trash -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/widgetTrash"
+                    android:layout_width="160dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="12dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="6dp"
+                    app:cardBackgroundColor="@color/red"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/trash_svgrepo_com"
+                            app:tint="@android:color/white" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Trash Task"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/white"
+                            android:textSize="16sp"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="@font/font_poppins" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- 📅 Calendar -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/widgetCalendar"
+                    android:layout_width="160dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="4dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="6dp"
+                    app:cardBackgroundColor="@color/teal_700"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/ic_calendar"
+                            app:tint="@android:color/white" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Calendar Task"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/white"
+                            android:textSize="16sp"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="@font/font_poppins" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </HorizontalScrollView>
 
-        <!-- 🔹 Task Category Widget -->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/widgetCategory"
+        <!-- 🔹 Today's Task Title -->
+        <TextView
+            android:id="@+id/tvTodayTaskTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Today's Task"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginBottom="12dp"
+            android:fontFamily="@font/font_poppins" />
+
+        <!-- 🔹 Today's Task List -->
+        <LinearLayout
+            android:id="@+id/layoutTodayTasks"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="6dp"
-            app:cardBackgroundColor="@android:color/white"
-            android:clickable="true"
-            android:focusable="true">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:padding="16dp">
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/category_solid_svgrepo_com"
-                    android:contentDescription="Category Icon\"
-                    android:layout_marginEnd="16dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Task Category"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/font_poppins" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <!-- 🔹 Trash Task Widget -->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/widgetTrash"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="6dp"
-            app:cardBackgroundColor="@android:color/white"
-            android:clickable="true"
-            android:focusable="true">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:padding="16dp">
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/trash_svgrepo_com"
-                    android:contentDescription="Trash Icon"
-                    android:layout_marginEnd="16dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Trash Task"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/font_poppins" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+            android:orientation="vertical"
+            android:layout_marginBottom="24dp" />
 
     </LinearLayout>
 </ScrollView>

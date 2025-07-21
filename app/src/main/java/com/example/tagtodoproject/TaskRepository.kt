@@ -1,6 +1,8 @@
 package com.example.tagtodoproject.data
 
 import androidx.lifecycle.LiveData
+import java.text.SimpleDateFormat
+import java.util.*
 
 class TaskRepository(private val dao: TaskDao) {
 
@@ -15,6 +17,12 @@ class TaskRepository(private val dao: TaskDao) {
 
     // ✅ Restore task (mark isDeleted = 0)
     suspend fun restoreTask(taskId: Int) = dao.restoreTask(taskId)
+
+    // ✅ Soft delete (mark isDeleted = 1)
+    suspend fun softDelete(taskId: Int) = dao.softDelete(taskId)
+
+    // ✅ Delete all tasks for a user
+    suspend fun deleteAllForUser(userId: Int) = dao.deleteAllForUser(userId)
 
     // ✅ Get tasks by category
     fun getTasksByCategory(category: String, userId: Int): LiveData<List<TaskEntity>> =
@@ -43,4 +51,15 @@ class TaskRepository(private val dao: TaskDao) {
     // ✅ Count by priority
     suspend fun countByPriorityForUser(priority: String, userId: Int): Int =
         dao.countByPriorityForUser(priority, userId)
+
+    // ✅ Count all active tasks
+    suspend fun countAllTasksForUser(userId: Int): Int =
+        dao.countAllTasksForUser(userId)
+
+    // ✅ NEW: Get today's tasks (tanpa LiveData)
+    suspend fun getTodayTasks(userId: Int): List<TaskEntity> {
+        val today = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date()) // 🔁 SAMA FORMAT!
+        return dao.getTodayTasksForUser(today, userId)
+    }
+
 }

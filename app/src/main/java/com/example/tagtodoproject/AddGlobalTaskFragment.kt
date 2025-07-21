@@ -38,16 +38,23 @@ class AddGlobalTaskFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 🔹 Setup Spinner kategori
+        setupCategorySpinner()
+        setupDatePicker()
+        setupPrioritySelector()
+        setupSaveButton()
+    }
+
+    private fun setupCategorySpinner() {
         val categories = listOf("Work", "School", "Exercise", "Home", "Finance")
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, categories)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerCategory.adapter = adapter
+    }
 
-        // 🔹 Tanggal pakai MaterialDatePicker
+    private fun setupDatePicker() {
         binding.ivDatePicker.setOnClickListener {
             val constraints = CalendarConstraints.Builder()
-                .setValidator(DateValidatorPointForward.now()) // hanya tanggal hari ini ke depan
+                .setValidator(DateValidatorPointForward.now())
 
             val datePicker = MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Pilih Tanggal")
@@ -58,23 +65,25 @@ class AddGlobalTaskFragment : Fragment() {
             datePicker.show(parentFragmentManager, "MaterialDatePicker")
 
             datePicker.addOnPositiveButtonClickListener { selection ->
-                val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
                 selectedDate = sdf.format(Date(selection))
                 binding.tvSelectedDate.text = "Tanggal dipilih: $selectedDate"
             }
         }
+    }
 
-        // 🔹 RadioGroup Prioritas
-        binding.rgPriority.setOnCheckedChangeListener { _, id ->
-            selectedPriority = when (id) {
+    private fun setupPrioritySelector() {
+        binding.rgPriority.setOnCheckedChangeListener { _, checkedId ->
+            selectedPriority = when (checkedId) {
                 R.id.rbLow -> "Low"
                 R.id.rbMedium -> "Medium"
                 R.id.rbHigh -> "High"
                 else -> "Low"
             }
         }
+    }
 
-        // 🔹 Tombol Simpan
+    private fun setupSaveButton() {
         binding.btnSave.setOnClickListener {
             val title = binding.etTaskTitle.text.toString().trim()
             val tag = binding.etTag.text.toString().trim()
@@ -100,40 +109,38 @@ class AddGlobalTaskFragment : Fragment() {
                 }
             }
 
-            val task = TaskEntity(
+            val newTask = TaskEntity(
                 title = title,
+                tags = tag,
                 date = selectedDate,
                 category = category,
                 priority = selectedPriority,
-                tags = tag,
                 userId = userId
             )
 
-            // 🔃 Simpan ke database
             viewLifecycleOwner.lifecycleScope.launch {
-                AppDatabase.getDatabase(requireContext()).taskDao().insert(task)
+                AppDatabase.getDatabase(requireContext()).taskDao().insert(newTask)
 
                 withContext(Dispatchers.Main) {
                     showToast("Task berhasil disimpan!")
-
-                    // 🔄 Reset form
-                    binding.etTaskTitle.text?.clear()
-                    binding.etTag.text?.clear()
-                    binding.spinnerCategory.setSelection(0)
-                    binding.rgPriority.check(R.id.rbLow)
-                    selectedPriority = "Low"
-                    selectedDate = ""
-                    binding.tvSelectedDate.text = "Tanggal dipilih:"
-
-                    // 🔝 Scroll ke atas
-                    binding.scrollView.fullScroll(View.FOCUS_UP)
+                    resetForm()
                 }
             }
         }
     }
 
-    private fun showToast(msg: String) {
-        Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
+    private fun resetForm() {
+        binding.etTaskTitle.text.clear()
+        binding.etTag.text.clear()
+        binding.spinnerCategory.setSelection(0)
+        binding.rgPriority.check(R.id.rbLow)
+        binding.tvSelectedDate.text = "Tanggal belum dipilih"
+        selectedDate = ""
+        selectedPriority = "Low"
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
     private fun getCurrentUserId(): Int {

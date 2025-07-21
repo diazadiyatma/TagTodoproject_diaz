@@ -4,21 +4,22 @@
     android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     android:background="#F5F5F5">
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp"
+        android:layout_marginBottom="96dp">
 
         <!-- 📝 Judul Task -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="4dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="8dp"
             app:cardUseCompatPadding="true"
@@ -27,8 +28,9 @@
             <EditText
                 android:id="@+id/etTaskTitle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="80dp"
                 android:hint="Tittle Task"
+                android:textSize="18sp"
                 android:inputType="text"
                 android:padding="12dp"
                 android:background="@android:color/transparent"
@@ -39,17 +41,18 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="8dp"
+            android:layout_marginVertical="4dp"
             app:cardCornerRadius="12dp"
-            app:cardElevation="8dp"
+            app:cardElevation="4dp"
             app:cardUseCompatPadding="true"
             app:cardBackgroundColor="@android:color/white">
 
             <EditText
                 android:id="@+id/etTag"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="80dp"
                 android:hint="Tag (example: urgent)"
+                android:textSize="18sp"
                 android:inputType="text"
                 android:padding="12dp"
                 android:background="@android:color/transparent"
@@ -62,13 +65,14 @@
             android:layout_height="wrap_content"
             android:text="Category"
             android:textStyle="bold"
-            android:layout_marginTop="16dp"
+            android:textSize="18sp"
+            android:layout_marginTop="6dp"
             android:fontFamily="@font/font_poppins" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="8dp"
+            android:layout_marginVertical="4dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="8dp"
             app:cardUseCompatPadding="true"
@@ -77,7 +81,7 @@
             <Spinner
                 android:id="@+id/spinnerCategory"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="80dp"
                 android:padding="12dp"
                 android:background="@android:color/transparent" />
         </androidx.cardview.widget.CardView>
@@ -88,7 +92,8 @@
             android:layout_height="wrap_content"
             android:text="Priority"
             android:textStyle="bold"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="6dp"
+            android:textSize="18sp"
             android:fontFamily="@font/font_poppins" />
 
         <RadioGroup
@@ -101,22 +106,25 @@
             <RadioButton
                 android:id="@+id/rbLow"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:text="Low"
+                android:textSize="16sp"
                 android:fontFamily="@font/font_poppins" />
 
             <RadioButton
                 android:id="@+id/rbMedium"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:text="Medium"
+                android:textSize="16sp"
                 android:fontFamily="@font/font_poppins" />
 
             <RadioButton
                 android:id="@+id/rbHigh"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:text="High"
+                android:textSize="16sp"
                 android:fontFamily="@font/font_poppins" />
         </RadioGroup>
 
@@ -124,8 +132,8 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="4dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="8dp"
             app:cardUseCompatPadding="true"
@@ -134,7 +142,7 @@
             <LinearLayout
                 android:id="@+id/llDateInput"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:orientation="horizontal"
                 android:padding="12dp"
                 android:gravity="center_vertical">
@@ -146,29 +154,32 @@
                     android:layout_weight="1"
                     android:text="Haven't chosen a date yet"
                     android:textColor="#444444"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:fontFamily="@font/font_poppins" />
 
                 <ImageView
                     android:id="@+id/ivDatePicker"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:src="@drawable/ic_calendar"
                     android:tint="#888888"
                     android:contentDescription="Pilih tanggal" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- ✅ Tombol Simpan -->
+        <!-- ✅ Tombol Simpan (dipusatkan dan diperpendek) -->
         <Button
             android:id="@+id/btnSave"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Save Task"
-            android:layout_marginTop="24dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="24dp"
             android:background="@drawable/bg_rounded_button"
-            android:textColor="#FFFFFF"
             android:fontFamily="@font/font_poppins"
-            android:padding="12dp" />
+            android:paddingHorizontal="74dp"
+            android:paddingVertical="12dp"
+            android:text="Save Task"
+            android:textColor="#FFFFFF" />
     </LinearLayout>
 </ScrollView>

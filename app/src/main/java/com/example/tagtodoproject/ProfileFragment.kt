@@ -4,7 +4,6 @@ import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.*
 import androidx.activity.result.PickVisualMediaRequest
@@ -18,7 +17,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.tagtodoproject.authentication.LoginActivity
 import com.example.tagtodoproject.data.AppDatabase
 import com.example.tagtodoproject.model.UserEntity
-import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -27,15 +25,15 @@ import java.util.*
 class ProfileFragment : Fragment() {
 
     private lateinit var ivProfile: ImageView
-    private lateinit var ivEditProfile: ImageView
+    private lateinit var btnEditProfile: Button
+    private lateinit var btnLogout: Button
     private lateinit var etUsername: EditText
     private lateinit var tvEmail: TextView
-    private lateinit var etContact: TextInputEditText
-    private lateinit var etLocation: TextInputEditText
-    private lateinit var etBirthDate: TextInputEditText
-    private lateinit var etGender: TextInputEditText
-    private lateinit var etBio: TextInputEditText
-    private lateinit var btnLogout: Button
+    private lateinit var etContact: EditText
+    private lateinit var etLocation: EditText
+    private lateinit var etBirthDate: EditText
+    private lateinit var etGender: EditText
+    private lateinit var etBio: EditText
 
     private var isEditMode = false
     private lateinit var currentUser: UserEntity
@@ -43,17 +41,13 @@ class ProfileFragment : Fragment() {
 
     private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
         if (uri != null && isEditMode) {
-            try {
-                Glide.with(this)
-                    .load(uri)
-                    .apply(RequestOptions.circleCropTransform())
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(ivProfile)
+            Glide.with(this)
+                .load(uri)
+                .apply(RequestOptions.circleCropTransform())
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(ivProfile)
 
-                updateUserProfilePhoto(uri.toString())
-            } catch (e: SecurityException) {
-                Toast.makeText(requireContext(), "Permission denied. Cannot load image.", Toast.LENGTH_SHORT).show()
-            }
+            updateUserProfilePhoto(uri.toString())
         }
     }
 
@@ -64,10 +58,10 @@ class ProfileFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
 
         ivProfile = view.findViewById(R.id.ivProfile)
-        ivEditProfile = view.findViewById(R.id.ivEditProfile)
+        btnEditProfile = view.findViewById(R.id.btnEditProfile)
+        btnLogout = view.findViewById(R.id.btnLogout)
         etUsername = view.findViewById(R.id.etUsername)
         tvEmail = view.findViewById(R.id.tvEmail)
-        btnLogout = view.findViewById(R.id.btnLogout)
 
         val itemContact = view.findViewById<View>(R.id.itemContact)
         val itemLocation = view.findViewById<View>(R.id.itemLocation)
@@ -93,7 +87,7 @@ class ProfileFragment : Fragment() {
         etGender.hint = "Gender"
         etBio.hint = "Bio"
 
-        ivEditProfile.setOnClickListener { toggleEditMode() }
+        btnEditProfile.setOnClickListener { toggleEditMode() }
 
         ivProfile.setOnClickListener {
             if (isEditMode) {
@@ -175,7 +169,7 @@ class ProfileFragment : Fragment() {
 
         isEditMode = !isEditMode
         setFieldsEnabled(isEditMode)
-        ivEditProfile.setImageResource(if (isEditMode) R.drawable.ic_check else R.drawable.ic_edit)
+        btnEditProfile.text = if (isEditMode) "Save" else "Edit Profile"
     }
 
     private fun setFieldsEnabled(enabled: Boolean) {

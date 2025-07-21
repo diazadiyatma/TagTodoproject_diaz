@@ -3,6 +3,7 @@ package com.example.tagtodoproject.authentication
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -20,24 +21,21 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         db = AppDatabase.getDatabase(this)
         val sharedPref = getSharedPreferences("user_session", MODE_PRIVATE)
 
-        // ✅ Toggle show password
         binding.cbShowPassword.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                binding.etPassword.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-            } else {
-                binding.etPassword.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-            }
+            binding.etPassword.inputType = if (isChecked)
+                InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+            else
+                InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+
             binding.etPassword.setSelection(binding.etPassword.text?.length ?: 0)
         }
 
-        // 🔒 Login logic
         binding.btnLogin.setOnClickListener {
             val input = binding.etEmail.text.toString().trim()
             val password = binding.etPassword.text.toString().trim()
@@ -53,22 +51,31 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 if (user != null) {
-                    // ✅ Simpan sesi login
+                    Log.d("LoginActivity", "Login sukses. user_id = ${user.id}")
+
+                    // ✅ Simpan sesi user
                     sharedPref.edit()
                         .putInt("user_id", user.id)
                         .putString("email", user.email)
-                        .putBoolean("isRegistered", true)
+                        .putBoolean("isLoggedIn", true)
                         .apply()
+
+                    // ✅ Hitung jumlah task user
+                    val taskCount = withContext(Dispatchers.IO) {
+                        db.taskDao().countAllTasksForUser(user.id)
+                    }
+
+                    Log.d("LoginActivity", "Task count for user: $taskCount")
 
                     Toast.makeText(this@LoginActivity, "Login berhasil!", Toast.LENGTH_SHORT).show()
 
                     // ✅ Navigasi ke dashboard
                     startActivity(Intent(this@LoginActivity, MainDashboardActivity::class.java).apply {
-                        putExtra("open_menu", true)
+                        putExtra("open_menu", taskCount > 0)
                     })
                     finish()
                 } else {
-                    Toast.makeText(this@LoginActivity, "Username/email atau password salah!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@LoginActivity, "Email atau password salah!", Toast.LENGTH_SHORT).show()
                 }
             }
         }

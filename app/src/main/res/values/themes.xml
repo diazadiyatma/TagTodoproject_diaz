@@ -1,32 +1,44 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Base Theme using Material3 -->
+    <!-- 🌕 Base Theme untuk seluruh aplikasi -->
     <style name="Base.Theme.TagTodoproject" parent="Theme.Material3.DayNight.NoActionBar">
 
-        <!-- ✅ Ganti warna utama dari ungu ke biru -->
+        <!-- 🎨 Warna utama -->
         <item name="colorPrimary">@color/yellowgold</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorPrimaryContainer">@color/yellowgold</item>
 
-        <!-- ✅ Warna sekunder -->
+        <!-- 🎨 Warna sekunder -->
         <item name="colorSecondary">@color/yellowgold</item>
         <item name="colorOnSecondary">@color/white</item>
 
-        <!-- ✅ Outline untuk TextInput -->
+        <!-- 🧾 Outline TextInput -->
         <item name="colorOutline">@color/yellowgold</item>
 
-        <!-- ✅ Status bar dan nav bar -->
+        <!-- 🔳 Status bar & nav bar -->
         <item name="android:statusBarColor" tools:targetApi="l">@android:color/transparent</item>
         <item name="android:navigationBarColor" tools:targetApi="l">@android:color/white</item>
 
-        <!-- ✅ Warna dasar dan font -->
+        <!-- 📄 Background & text -->
         <item name="android:colorBackground">@color/white</item>
         <item name="colorSurface">@color/white</item>
         <item name="colorOnSurface">@color/black</item>
+
+        <!-- 🆎 Font -->
         <item name="android:fontFamily">@font/font_poppins</item>
 
+        <!-- ✨ Hilangkan highlight saat klik -->
+        <item name="colorControlHighlight">@android:color/transparent</item>
     </style>
 
+    <!-- 🌐 Theme utama aplikasi -->
     <style name="Theme.TagTodoproject" parent="Base.Theme.TagTodoproject" />
+
+    <!-- 🟡 Theme khusus SplashActivity -->
+    <style name="Theme.TagTodoproject.Splash" parent="Base.Theme.TagTodoproject">
+        <!-- Background untuk splash -->
+        <item name="android:windowBackground">@color/yellowgold</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
 
 </resources>

@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/menu_navigation_grid_1529_svgrepo_com"
+        android:title="Menu" />
+
+    <!-- ❌ Hapus tombol Add Task dari sini, biar pakai FAB saja -->
+
+    <item
+        android:id="@+id/nav_profile"
+        android:icon="@drawable/user_svgrepo_com"
+        android:title="Profile" />
+</menu>

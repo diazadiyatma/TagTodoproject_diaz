@@ -32,9 +32,19 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         repository.delete(task)
     }
 
+    // ✅ Soft delete (move to trash)
+    fun softDelete(taskId: Int) = viewModelScope.launch {
+        repository.softDelete(taskId)
+    }
+
     // ✅ Restore task from trash
     fun restore(taskId: Int) = viewModelScope.launch {
         repository.restoreTask(taskId)
+    }
+
+    // ✅ Delete all task for specific user
+    fun deleteAllForUser(userId: Int) = viewModelScope.launch {
+        repository.deleteAllForUser(userId)
     }
 
     // ✅ Get tasks by category
@@ -61,10 +71,26 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
     fun getAllTasks(userId: Int) =
         repository.getAllTasksByUser(userId)
 
-    // ✅ Count by priority (callback)
+    // ✅ Count by priority (result via callback)
     fun countByPriority(priority: String, userId: Int, onResult: (Int) -> Unit) {
         viewModelScope.launch {
             val result = repository.countByPriorityForUser(priority, userId)
+            onResult(result)
+        }
+    }
+
+    // ✅ Count all tasks (for statistics, etc)
+    fun countAllTasks(userId: Int, onResult: (Int) -> Unit) {
+        viewModelScope.launch {
+            val result = repository.countAllTasksForUser(userId)
+            onResult(result)
+        }
+    }
+
+    // ✅ Get today’s tasks (custom use)
+    fun getTodayTasks(userId: Int, onResult: (List<TaskEntity>) -> Unit) {
+        viewModelScope.launch {
+            val result = repository.getTodayTasks(userId)
             onResult(result)
         }
     }
