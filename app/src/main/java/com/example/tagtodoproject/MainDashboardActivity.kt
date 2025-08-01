@@ -6,10 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.tagtodoproject.authentication.LoginActivity
 import com.example.tagtodoproject.databinding.ActivityMainDashboardBinding
-import com.example.tagtodoproject.AddGlobalTaskFragment
-import com.example.tagtodoproject.HomeFragment
-import com.example.tagtodoproject.ProfileFragment
-import com.example.tagtodoproject.ui.menu.MenuFragment
+import com.example.tagtodoproject.dashboard.AddGlobalTaskFragment
+import com.example.tagtodoproject.category.HomeFragment
+import com.example.tagtodoproject.dashboard.ProfileFragment
+import com.example.tagtodoproject.dashboard.MenuFragment
 import com.google.android.material.navigation.NavigationBarView
 
 class MainDashboardActivity : AppCompatActivity() {

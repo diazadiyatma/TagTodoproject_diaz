@@ -1,91 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    card_view:cardCornerRadius="12dp"
-    card_view:cardElevation="4dp"
-    card_view:cardBackgroundColor="@color/yellowgold">
+    android:background="@color/white"
+    android:padding="16dp">
 
+    <!-- Row: Category + Checkbox -->
     <LinearLayout
-        android:padding="16dp"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:weightSum="1">
 
-        <!-- Row: Category + Checkbox -->
         <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="0.9"
             android:orientation="horizontal"
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:weightSum="1">
+            android:gravity="center_vertical">
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="0.9"
-                android:orientation="horizontal"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical">
+            <ImageView
+                android:id="@+id/ivCategoryIcon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/tags_svgrepo_com" />
 
-                <ImageView
-                    android:id="@+id/ivCategoryIcon"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginEnd="8dp"
-                    android:src="@drawable/tags_svgrepo_com" />
-
-                <TextView
-                    android:id="@+id/tvCategoryName"
-                    android:text="Work"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <CheckBox
-                android:id="@+id/cbComplete"
+            <TextView
+                android:id="@+id/tvCategoryName"
+                android:text="Work"
+                android:textSize="14sp"
+                android:textColor="@color/black"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:buttonTint="@color/white"
-                android:focusable="false"
-                android:focusableInTouchMode="false" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
-        <!-- Task Title -->
-        <TextView
-            android:id="@+id/tvTaskName"
-            android:text="Judul Task"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_marginTop="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <!-- Priority -->
-        <TextView
-            android:id="@+id/tvPriority"
-            android:text="High Priority"
-            android:textSize="14sp"
-            android:textColor="@color/black"
-            android:layout_marginTop="4dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <!-- Tags -->
-        <TextView
-            android:id="@+id/tvTags"
+        <CheckBox
+            android:id="@+id/cbComplete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="#urgent"
-            android:textSize="14sp"
-            android:textColor="@color/black"
-            android:layout_marginTop="4dp"
-            android:fontFamily="@font/font_poppins" />
-
+            android:layout_gravity="center_vertical"
+            android:buttonTint="@color/bluet2"
+            android:focusable="false"
+            android:focusableInTouchMode="false" />
     </LinearLayout>
-</androidx.cardview.widget.CardView>
+
+    <!-- Task Title -->
+    <TextView
+        android:id="@+id/tvTaskName"
+        android:text="Judul Task"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@color/bluet2"
+        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <!-- Priority -->
+    <TextView
+        android:id="@+id/tvPriority"
+        android:text="High Priority"
+        android:textSize="12sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="4dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <!-- Tags -->
+    <TextView
+        android:id="@+id/tvTags"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="#urgent"
+        android:textSize="12sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/font_poppins" />
+
+    <!-- Garis separator -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/greysantuy" />
+</LinearLayout>

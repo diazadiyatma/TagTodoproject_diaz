@@ -26,10 +26,10 @@
             app:cardBackgroundColor="@android:color/white">
 
             <EditText
-                android:id="@+id/etTaskTitle"
+                android:id="@+id/etTaskName"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                android:hint="Tittle Task"
+                android:hint="Title Task"
                 android:textSize="18sp"
                 android:inputType="text"
                 android:padding="12dp"
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="4dp"
             app:cardCornerRadius="12dp"
-            app:cardElevation="4dp"
+            app:cardElevation="8dp"
             app:cardUseCompatPadding="true"
             app:cardBackgroundColor="@android:color/white">
 
@@ -59,92 +59,11 @@
                 android:fontFamily="@font/font_poppins" />
         </androidx.cardview.widget.CardView>
 
-        <!-- 🧭 Kategori -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Category"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:textColor="@color/black"
-            android:layout_marginTop="6dp"
-            android:fontFamily="@font/font_poppins" />
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="4dp"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="8dp"
-            app:cardUseCompatPadding="true"
-            app:cardBackgroundColor="@android:color/white">
-
-            <Spinner
-                android:id="@+id/spinnerCategory"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:padding="12dp"
-                android:background="@android:color/transparent"
-                android:spinnerMode="dropdown"
-                android:drawableEnd="@drawable/dropdown_svgrepo_com"
-                android:drawablePadding="8dp"
-                android:gravity="center_vertical" />
-
-
-        </androidx.cardview.widget.CardView>
-
-        <!-- ⚡ Prioritas -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Priority"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_marginTop="6dp"
-            android:textSize="18sp"
-            android:fontFamily="@font/font_poppins" />
-
-        <RadioGroup
-            android:id="@+id/rgPriority"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="4dp">
-
-            <RadioButton
-                android:id="@+id/rbLow"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:text="Low"
-                app:buttonTint="@android:color/black"
-                android:textSize="16sp"
-                android:fontFamily="@font/font_poppins" />
-
-            <RadioButton
-                android:id="@+id/rbMedium"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:text="Medium"
-                app:buttonTint="@android:color/black"
-                android:textSize="16sp"
-                android:fontFamily="@font/font_poppins" />
-
-            <RadioButton
-                android:id="@+id/rbHigh"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:text="High"
-                app:buttonTint="@android:color/black"
-                android:textSize="16sp"
-                android:fontFamily="@font/font_poppins" />
-        </RadioGroup>
-
         <!-- 📅 Tanggal -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginVertical="4dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="8dp"
             app:cardUseCompatPadding="true"
@@ -159,38 +78,70 @@
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:id="@+id/tvSelectedDate"
+                    android:id="@+id/etDueDate"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Haven't chosen a date yet"
+                    android:text="Choose due date"
                     android:textColor="#444444"
                     android:textSize="14sp"
                     android:fontFamily="@font/font_poppins" />
 
                 <ImageView
-                    android:id="@+id/ivDatePicker"
+                    android:id="@+id/ivCalendar"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:src="@drawable/ic_calendar"
                     android:tint="#888888"
-                    android:contentDescription="Pilih tanggal" />
+                    android:contentDescription="Select date" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- ✅ Tombol Simpan (dipusatkan dan diperpendek) -->
+        <!-- ⚡ Kategori -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Category"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="6dp"
+            android:textSize="18sp"
+            android:fontFamily="@font/font_poppins" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="4dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="8dp"
+            app:cardUseCompatPadding="true"
+            app:cardBackgroundColor="@android:color/white">
+
+            <Spinner
+                android:id="@+id/spinnerPriority"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:padding="12dp"
+                android:background="@android:color/transparent"
+                android:spinnerMode="dropdown"
+                android:drawableEnd="@drawable/dropdown_svgrepo_com"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical" />
+        </androidx.cardview.widget.CardView>
+
+        <!-- ✅ Tombol Update -->
         <Button
-            android:id="@+id/btnSave"
+            android:id="@+id/btnUpdate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="24dp"
             android:background="@drawable/bg_rounded_button"
             android:fontFamily="@font/font_poppins"
-            android:paddingHorizontal="74dp"
+            android:paddingHorizontal="64dp"
             android:paddingVertical="12dp"
-            android:text="Save Task"
+            android:text="Update Task"
             android:textColor="#FFFFFF" />
     </LinearLayout>
 </ScrollView>

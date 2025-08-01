@@ -4,8 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.tagtodoproject.UserDao
-import com.example.tagtodoproject.model.UserEntity
+import com.example.tagtodoproject.user.UserDao
+import com.example.tagtodoproject.user.UserEntity
+import com.example.tagtodoproject.task.TaskDao
+import com.example.tagtodoproject.task.TaskEntity
 
 @Database(
     entities = [UserEntity::class, TaskEntity::class],

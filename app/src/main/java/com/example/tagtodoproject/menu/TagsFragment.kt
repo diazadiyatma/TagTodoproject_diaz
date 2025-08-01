@@ -1,15 +1,24 @@
-package com.example.tagtodoproject
+package com.example.tagtodoproject.menu
 
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.*
-import android.widget.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.CheckBox
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.example.tagtodoproject.data.TaskEntity
-import com.example.tagtodoproject.viewmodel.TaskViewModel
+import com.example.tagtodoproject.R
+import com.example.tagtodoproject.task.TaskEntity
+import com.example.tagtodoproject.task.TaskViewModel
+import kotlin.collections.iterator
 
 class TagsFragment : Fragment() {
 

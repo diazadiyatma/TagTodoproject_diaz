@@ -3,8 +3,6 @@ package com.example.tagtodoproject.authentication
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
-import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.tagtodoproject.MainDashboardActivity
@@ -40,10 +38,23 @@ class LoginActivity : AppCompatActivity() {
             val input = binding.etEmail.text.toString().trim()
             val password = binding.etPassword.text.toString().trim()
 
-            if (input.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Harap isi semua field!", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
+            var isValid = true
+
+            if (input.isEmpty()) {
+                binding.etEmail.error = "Email tidak boleh kosong"
+                isValid = false
+            } else {
+                binding.etEmail.error = null
             }
+
+            if (password.isEmpty()) {
+                binding.etPassword.error = "Password tidak boleh kosong"
+                isValid = false
+            } else {
+                binding.etPassword.error = null
+            }
+
+            if (!isValid) return@setOnClickListener
 
             lifecycleScope.launch {
                 val user = withContext(Dispatchers.IO) {
@@ -51,31 +62,23 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 if (user != null) {
-                    Log.d("LoginActivity", "Login sukses. user_id = ${user.id}")
-
-                    // ✅ Simpan sesi user
                     sharedPref.edit()
                         .putInt("user_id", user.id)
                         .putString("email", user.email)
                         .putBoolean("isLoggedIn", true)
                         .apply()
 
-                    // ✅ Hitung jumlah task user
                     val taskCount = withContext(Dispatchers.IO) {
                         db.taskDao().countAllTasksForUser(user.id)
                     }
 
-                    Log.d("LoginActivity", "Task count for user: $taskCount")
-
-                    Toast.makeText(this@LoginActivity, "Login berhasil!", Toast.LENGTH_SHORT).show()
-
-                    // ✅ Navigasi ke dashboard
                     startActivity(Intent(this@LoginActivity, MainDashboardActivity::class.java).apply {
                         putExtra("open_menu", taskCount > 0)
                     })
                     finish()
                 } else {
-                    Toast.makeText(this@LoginActivity, "Email atau password salah!", Toast.LENGTH_SHORT).show()
+                    binding.etEmail.error = "Email atau password salah"
+                    binding.etPassword.error = "Email atau password salah"
                 }
             }
         }

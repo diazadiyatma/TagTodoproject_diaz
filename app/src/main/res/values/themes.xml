@@ -4,12 +4,12 @@
     <style name="Base.Theme.TagTodoproject" parent="Theme.Material3.DayNight.NoActionBar">
 
         <!-- 🎨 Warna utama -->
-        <item name="colorPrimary">@color/yellowgold</item>
+        <item name="colorPrimary">@color/bluet2</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorPrimaryContainer">@color/yellowgold</item>
 
         <!-- 🎨 Warna sekunder -->
-        <item name="colorSecondary">@color/yellowgold</item>
+        <item name="colorSecondary">@color/bluet2</item>
         <item name="colorOnSecondary">@color/white</item>
 
         <!-- 🧾 Outline TextInput -->

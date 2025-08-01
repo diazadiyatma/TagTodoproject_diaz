@@ -1,16 +1,16 @@
-package com.example.tagtodoproject.ui.category
+package com.example.tagtodoproject.menu
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.tagtodoproject.ExcerciseFragment
-import com.example.tagtodoproject.FinanceFragment
-import com.example.tagtodoproject.HomeFragment
-import com.example.tagtodoproject.SchoolFragment
-import com.example.tagtodoproject.WorkFragment
 import com.example.tagtodoproject.R
+import com.example.tagtodoproject.category.ExcerciseFragment
+import com.example.tagtodoproject.category.FinanceFragment
+import com.example.tagtodoproject.category.HomeFragment
+import com.example.tagtodoproject.category.SchoolFragment
+import com.example.tagtodoproject.category.WorkFragment
 import com.example.tagtodoproject.databinding.FragmentTaskCategoryBinding
 
 class TaskCategoryFragment : Fragment() {

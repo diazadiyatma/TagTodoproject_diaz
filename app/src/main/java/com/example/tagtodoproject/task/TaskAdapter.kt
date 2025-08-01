@@ -1,4 +1,4 @@
-package com.example.tagtodoproject.adapter
+package com.example.tagtodoproject.task
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,13 +8,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tagtodoproject.R
-import com.example.tagtodoproject.data.TaskEntity
+import com.example.tagtodoproject.task.TaskEntity
 
 class TaskAdapter(
     private val onDelete: (TaskEntity) -> Unit = {},
     private val onCheck: ((TaskEntity, Boolean) -> Unit)? = null,
     private val isTrashMode: Boolean = false,
-    private val isReadOnly: Boolean = false
+    private val isReadOnly: Boolean = false,
+    private val onItemClick: ((TaskEntity) -> Unit)? = null // ⬅️ Callback untuk navigasi edit
 ) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
     private val tasks = mutableListOf<TaskEntity>()
@@ -32,6 +33,19 @@ class TaskAdapter(
         val tvDate: TextView = view.findViewById(R.id.tvDate)
         val ivDelete: ImageView = view.findViewById(R.id.ivDeleteItem)
         val ivCategoryIcon: ImageView = view.findViewById(R.id.ivCategoryIcon)
+        val tvPriority: TextView = view.findViewById(R.id.tvPriority)
+
+
+        init {
+            // 🔹 Tambahkan click listener ke itemView
+            view.setOnClickListener {
+                val position = bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val task = tasks[position]
+                    onItemClick?.invoke(task)
+                }
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
@@ -46,6 +60,8 @@ class TaskAdapter(
         holder.tvTaskName.text = task.title
         holder.tvTags.text = "${task.category} • ${task.priority}"
         holder.tvDate.text = task.date
+        holder.tvPriority.text = "Priority: ${task.priority}"
+
 
         // 🔹 Set icon kategori
         val iconRes = when (task.category.lowercase()) {

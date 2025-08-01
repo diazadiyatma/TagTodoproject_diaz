@@ -1,23 +1,29 @@
-package com.example.tagtodoproject
+package com.example.tagtodoproject.menu
 
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.example.tagtodoproject.R
 import com.example.tagtodoproject.data.AppDatabase
-import com.example.tagtodoproject.data.TaskEntity
 import com.example.tagtodoproject.databinding.FragmentCalendarBinding
-import com.prolificinteractive.materialcalendarview.*
+import com.example.tagtodoproject.task.TaskEntity
+import com.prolificinteractive.materialcalendarview.CalendarDay
+import com.prolificinteractive.materialcalendarview.DayViewDecorator
+import com.prolificinteractive.materialcalendarview.DayViewFacade
 import com.prolificinteractive.materialcalendarview.spans.DotSpan
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Locale
 
 class CalendarFragment : Fragment() {
 
@@ -41,16 +47,14 @@ class CalendarFragment : Fragment() {
             val userId = getCurrentUserId()
 
             taskList = withContext(Dispatchers.IO) {
-                AppDatabase.getDatabase(requireContext())
+                AppDatabase.Companion.getDatabase(requireContext())
                     .taskDao()
                     .getAllTasksByUserNow(userId)
             }
 
-            // Tambahkan titik di tanggal yang punya task
             val taskDates = taskList.mapNotNull { parseDateToCalendarDay(it.date) }.toSet()
             binding.calendarView.addDecorator(TaskDateDecorator(taskDates))
 
-            // Saat tanggal diklik
             binding.calendarView.setOnDateChangedListener { _, date, _ ->
                 val selectedDate = formatDate(date)
                 val tasksOnDate = taskList.filter { it.date == selectedDate }
@@ -95,7 +99,7 @@ class CalendarFragment : Fragment() {
     private fun formatDate(date: CalendarDay): String {
         val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
         val calendar = Calendar.getInstance().apply {
-            set(date.year, date.month , date.day) // month - 1 karena Calendar pakai index 0
+            set(date.year, date.month, date.day) // Tidak perlu -1 karena CalendarDay pakai 0-based
         }
         return sdf.format(calendar.time)
     }
@@ -106,10 +110,9 @@ class CalendarFragment : Fragment() {
             val date = sdf.parse(dateString)
             val cal = Calendar.getInstance().apply { time = date }
 
-            // Jangan +1, karena Calendar.MONTH udah 0-based dan CalendarDay.from terima 0-based juga
             CalendarDay.from(
                 cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH), // ❌ jangan +1
+                cal.get(Calendar.MONTH), // sudah 0-based
                 cal.get(Calendar.DAY_OF_MONTH)
             )
         } catch (e: Exception) {
@@ -118,11 +121,10 @@ class CalendarFragment : Fragment() {
         }
     }
 
-
     class TaskDateDecorator(private val dates: Set<CalendarDay>) : DayViewDecorator {
         override fun shouldDecorate(day: CalendarDay): Boolean = dates.contains(day)
         override fun decorate(view: DayViewFacade) {
-            view.addSpan(DotSpan(8f, Color.parseColor("#FFD700"))) // Gold dot
+            view.addSpan(DotSpan(8f, Color.parseColor("#FFD700"))) // Titik emas
         }
     }
 

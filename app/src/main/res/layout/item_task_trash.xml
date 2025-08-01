@@ -4,16 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="12dp"
-    android:layout_marginHorizontal="8dp"
+    android:layout_marginHorizontal="16dp"
     app:cardCornerRadius="16dp"
     app:cardElevation="6dp"
-    app:cardBackgroundColor="@color/yellowgold">
+    app:cardBackgroundColor="@color/bluesantuy">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="12dp"
+        android:padding="16dp"
         android:gravity="center_vertical">
 
         <!-- Info task -->
@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:text="Task Name"
                 android:textStyle="bold"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:fontFamily="@font/font_poppins" />
 
@@ -48,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Due Date"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="14sp"
                 android:fontFamily="@font/font_poppins" />
 
@@ -57,19 +57,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Priority: Medium"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="14sp"
                 android:fontFamily="@font/font_poppins" />
         </LinearLayout>
 
-        <!-- 🗑️ Delete Permanen -->
-        <ImageView
-            android:id="@+id/ivDeletePermanent"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/delete_svgrepo"
-            android:tint="@color/red"
+        <!-- Ganti icon delete jadi checkbox -->
+        <CheckBox
+            android:id="@+id/checkboxSelect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:contentDescription="Delete Permanently" />
+            android:buttonTint="@color/black"
+            android:contentDescription="Select task" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

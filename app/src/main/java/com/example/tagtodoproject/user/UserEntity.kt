@@ -1,4 +1,4 @@
-package com.example.tagtodoproject.model
+package com.example.tagtodoproject.user
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

@@ -1,4 +1,4 @@
-package com.example.tagtodoproject
+package com.example.tagtodoproject.dashboard
 
 import android.app.DatePickerDialog
 import android.app.Dialog
@@ -9,14 +9,17 @@ import android.widget.*
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatSpinner
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
+import com.example.tagtodoproject.R
 import com.example.tagtodoproject.authentication.LoginActivity
 import com.example.tagtodoproject.data.AppDatabase
-import com.example.tagtodoproject.model.UserEntity
+import com.example.tagtodoproject.user.UserEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -32,9 +35,10 @@ class ProfileFragment : Fragment() {
     private lateinit var etContact: EditText
     private lateinit var etLocation: EditText
     private lateinit var etBirthDate: EditText
-    private lateinit var etGender: EditText
+    private lateinit var spinnerGender: AppCompatSpinner
     private lateinit var etBio: EditText
-
+    private lateinit var ivDropdownIcon: ImageView
+    private lateinit var ivCalendarIcon: ImageView
     private var isEditMode = false
     private lateinit var currentUser: UserEntity
     private var selectedBirthDate: String = ""
@@ -57,35 +61,25 @@ class ProfileFragment : Fragment() {
     ): View {
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
 
+        // Views
         ivProfile = view.findViewById(R.id.ivProfile)
         btnEditProfile = view.findViewById(R.id.btnEditProfile)
         btnLogout = view.findViewById(R.id.btnLogout)
         etUsername = view.findViewById(R.id.etUsername)
         tvEmail = view.findViewById(R.id.tvEmail)
+        etContact = view.findViewById(R.id.etContact)
+        etLocation = view.findViewById(R.id.etLocation)
+        etBirthDate = view.findViewById(R.id.ivCalendar)
+        spinnerGender = view.findViewById(R.id.ivGenderDrop)
+        etBio = view.findViewById(R.id.etBio)
+        ivDropdownIcon = view.findViewById(R.id.ivDropdownIcon)
+        ivCalendarIcon = view.findViewById(R.id.ivCalendarIcon)
 
-        val itemContact = view.findViewById<View>(R.id.itemContact)
-        val itemLocation = view.findViewById<View>(R.id.itemLocation)
-        val itemBirthDate = view.findViewById<View>(R.id.itemBirthDate)
-        val itemGender = view.findViewById<View>(R.id.itemGender)
-        val itemBio = view.findViewById<View>(R.id.itemBio)
 
-        etContact = itemContact.findViewById(R.id.etField)
-        etLocation = itemLocation.findViewById(R.id.etField)
-        etBirthDate = itemBirthDate.findViewById(R.id.etField)
-        etGender = itemGender.findViewById(R.id.etField)
-        etBio = itemBio.findViewById(R.id.etField)
-
-        itemContact.findViewById<ImageView>(R.id.ivIcon).setImageResource(R.drawable.ic_phone)
-        itemLocation.findViewById<ImageView>(R.id.ivIcon).setImageResource(R.drawable.ic_location)
-        itemBirthDate.findViewById<ImageView>(R.id.ivIcon).setImageResource(R.drawable.ic_calendar)
-        itemGender.findViewById<ImageView>(R.id.ivIcon).setImageResource(R.drawable.ic_gender)
-        itemBio.findViewById<ImageView>(R.id.ivIcon).setImageResource(R.drawable.ic_info)
-
-        etContact.hint = "Contact"
-        etLocation.hint = "Location"
-        etBirthDate.hint = "Birth Date"
-        etGender.hint = "Gender"
-        etBio.hint = "Bio"
+        // Spinner gender setup
+        val genderOptions = listOf("Male", "Female")
+        val genderAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, genderOptions)
+        spinnerGender.adapter = genderAdapter
 
         btnEditProfile.setOnClickListener { toggleEditMode() }
 
@@ -131,14 +125,17 @@ class ProfileFragment : Fragment() {
                 etLocation.setText(it.location)
                 etBirthDate.setText(it.birthDate ?: "")
                 selectedBirthDate = it.birthDate ?: ""
-                etGender.setText(it.gender ?: "")
                 etBio.setText(it.bio ?: "")
+
+                // Set gender
+                val genderIndex = listOf("Male", "Female").indexOf(it.gender ?: "Male")
+                spinnerGender.setSelection(if (genderIndex != -1) genderIndex else 0)
 
                 if (!it.profilePhotoUri.isNullOrEmpty()) {
                     Glide.with(this@ProfileFragment)
                         .load(it.profilePhotoUri)
                         .apply(RequestOptions.circleCropTransform())
-                        .placeholder(R.drawable.account_avatar_profile_user_svgrepo_com)
+                        .placeholder(R.drawable.user_svgrepo_com)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(ivProfile)
                 }
@@ -154,7 +151,7 @@ class ProfileFragment : Fragment() {
                 username = etUsername.text.toString(),
                 contact = etContact.text.toString(),
                 location = etLocation.text.toString(),
-                gender = etGender.text.toString(),
+                gender = spinnerGender.selectedItem.toString(),
                 birthDate = selectedBirthDate,
                 bio = etBio.text.toString()
             )
@@ -177,9 +174,13 @@ class ProfileFragment : Fragment() {
         etContact.isEnabled = enabled
         etLocation.isEnabled = enabled
         etBirthDate.isEnabled = enabled
-        etGender.isEnabled = enabled
         etBio.isEnabled = enabled
+        spinnerGender.isEnabled = enabled
+
+        ivDropdownIcon.visibility = if (enabled) View.VISIBLE else View.GONE
+        ivCalendarIcon.visibility = if (enabled) View.VISIBLE else View.GONE
     }
+
 
     private fun updateUserProfilePhoto(photoUri: String) {
         val updatedUser = currentUser.copy(profilePhotoUri = photoUri)
@@ -216,12 +217,12 @@ class ProfileFragment : Fragment() {
             Glide.with(this)
                 .load(imageUri)
                 .apply(RequestOptions.circleCropTransform())
-                .placeholder(R.drawable.account_avatar_profile_user_svgrepo_com)
+                .placeholder(R.drawable.user_svgrepo_com)
                 .into(imageView)
         } else {
             ivProfile.drawable?.let {
                 imageView.setImageDrawable(it)
-            } ?: imageView.setImageResource(R.drawable.account_avatar_profile_user_svgrepo_com)
+            } ?: imageView.setImageResource(R.drawable.user_svgrepo_com)
         }
 
         imageView.setOnClickListener { dialog.dismiss() }

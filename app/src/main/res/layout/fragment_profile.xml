@@ -4,7 +4,7 @@
     android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightGrey"
+    android:background="@color/bluesantuy"
     android:fillViewport="true"
     android:paddingTop="24dp"
     android:paddingBottom="32dp">
@@ -37,7 +37,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/account_avatar_profile_user_svgrepo_com"
+                    android:src="@drawable/user_svgrepo_com"
                     android:contentDescription="Profile Photo"
                     android:clickable="true"
                     android:focusable="true" />
@@ -75,7 +75,6 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!-- 📄 Info Fields -->
         <LinearLayout
             android:id="@+id/infoFieldsLayout"
             android:layout_width="match_parent"
@@ -84,26 +83,137 @@
             android:layout_marginTop="24dp"
             android:orientation="vertical">
 
-            <include
-                android:id="@+id/itemContact"
-                layout="@layout/item_profile_input" />
+            <!-- 📱 Contact -->
+            <TextView
+                android:id="@+id/tvContactLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Contact"
+                android:textSize="14sp" />
 
-            <include
-                android:id="@+id/itemLocation"
-                layout="@layout/item_profile_input" />
+            <EditText
+                android:id="@+id/etContact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_edittext"
+                android:hint="Enter your contact"
+                android:padding="12dp" />
 
-            <include
-                android:id="@+id/itemGender"
-                layout="@layout/item_profile_input" />
+            <!-- 📍 Location -->
+            <TextView
+                android:id="@+id/tvLocationLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Location"
+                android:textSize="14sp"
+                android:layout_marginTop="16dp" />
 
-            <include
-                android:id="@+id/itemBirthDate"
-                layout="@layout/item_profile_input" />
+            <EditText
+                android:id="@+id/etLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_edittext"
+                android:hint="Enter your location"
+                android:padding="12dp" />
 
-            <include
-                android:id="@+id/itemBio"
-                layout="@layout/item_profile_input" />
+            <!-- 🚻 Gender -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="16dp">
+
+                <TextView
+                    android:id="@+id/tvGenderLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Gender"
+                    android:textSize="14sp" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/ivGenderDrop"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_edittext"
+                        android:padding="12dp"
+                        android:layout_gravity="center_vertical"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:id="@+id/ivDropdownIcon"
+                        android:layout_height="24dp"
+                        android:layout_gravity="end|center_vertical"
+                        android:layout_marginEnd="12dp"
+                        android:contentDescription="Dropdown Icon"
+                        android:src="@drawable/dropdown_svgrepo_com" />
+                </FrameLayout>
+
+            </LinearLayout>
+
+
+
+            <!-- 🎂 Birth Date -->
+            <TextView
+                android:id="@+id/tvBirthDateLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Birth Date"
+                android:textSize="14sp"
+                android:layout_marginTop="16dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <EditText
+                    android:id="@+id/ivCalendar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:background="@drawable/rounded_edittext"
+                    android:hint="DD/MM/YYYY"
+                    android:padding="12dp"
+                    android:inputType="none"
+                    android:focusable="false" />
+
+                <ImageView
+                    android:id="@+id/ivCalendarIcon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="12dp"
+                    android:src="@drawable/ic_calendar"
+                    android:contentDescription="Calendar Icon"/>
+
+
+            </RelativeLayout>
+
+
+            <!-- 📝 Bio -->
+            <TextView
+                android:id="@+id/tvBioLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bio"
+                android:textSize="14sp"
+                android:layout_marginTop="16dp" />
+
+            <EditText
+                android:id="@+id/etBio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_edittext"
+                android:hint="Write a short bio"
+                android:padding="12dp" />
         </LinearLayout>
+
 
         <!-- ✏️ Edit Profile Button -->
         <Button
@@ -117,7 +227,7 @@
             android:textSize="16sp"
             android:fontFamily="@font/font_poppins"
             android:textColor="@android:color/white"
-            android:backgroundTint="@color/yellowgold"
+            android:backgroundTint="@color/bluet2"
             android:paddingVertical="12dp"
             android:paddingHorizontal="20dp" />
 
@@ -127,7 +237,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/btnEditProfile"
-            android:layout_marginTop="34dpdp"
+            android:layout_marginTop="14dp"
             android:layout_marginBottom="24dp"
             android:text="Logout"
             android:textAllCaps="false"

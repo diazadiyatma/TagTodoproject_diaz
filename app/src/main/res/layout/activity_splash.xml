@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/yellowgold"> <!-- Yellow Gold -->
+    android:background="@color/bluet2"> <!-- Yellow Gold -->
 
     <ImageView
         android:id="@+id/logoImageView"

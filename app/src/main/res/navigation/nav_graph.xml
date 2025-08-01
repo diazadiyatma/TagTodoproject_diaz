@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/workFragment">
+
+    <fragment
+        android:id="@+id/workFragment"
+        android:name="com.example.tagtodoproject.category.WorkFragment"
+        android:label="Work">
+        <action
+            android:id="@+id/action_workFragment_to_editTaskFragment"
+            app:destination="@id/editTaskFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/schoolFragment"
+        android:name="com.example.tagtodoproject.category.SchoolFragment"
+        android:label="School">
+        <action
+            android:id="@+id/action_schoolFragment_to_editTaskFragment"
+            app:destination="@id/editTaskFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/exerciseFragment"
+        android:name="com.example.tagtodoproject.category.ExerciseFragment"
+        android:label="Exercise">
+        <action
+            android:id="@+id/action_exerciseFragment_to_editTaskFragment"
+            app:destination="@id/editTaskFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.tagtodoproject.category.HomeFragment"
+        android:label="Home">
+        <action
+            android:id="@+id/action_homeFragment_to_editTaskFragment"
+            app:destination="@id/editTaskFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/financeFragment"
+        android:name="com.example.tagtodoproject.category.FinanceFragment"
+        android:label="Finance">
+        <action
+            android:id="@+id/action_financeFragment_to_editTaskFragment"
+            app:destination="@id/editTaskFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/editTaskFragment"
+        android:name="com.example.tagtodoproject.category.EditTaskFragment"
+        android:label="Edit Task" />
+</navigation>

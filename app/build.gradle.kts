@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.google.gms.google.services)
     id("kotlin-kapt")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -104,5 +105,11 @@ dependencies {
 
     // CardView
     implementation("androidx.cardview:cardview:1.0.0")
+
+       //navigation to edittaskfragment.kt
+    implementation("androidx.navigation:navigation-fragment-ktx:2.6.0")
+
+    implementation("androidx.navigation:navigation-ui-ktx:2.6.0")
+
 
 }

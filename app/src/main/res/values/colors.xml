@@ -24,5 +24,9 @@
     <color name="greensoft"> #51A687</color>
     <color name="purple_200">#BB86FC</color>
     <color name="teal_700">#018786</color>
+    <color name="bluesantuy">#D9EFF7</color>
+    <color name="blueslow">#9BBBFC</color>
+    <color name="Purpleslow">#4741A6</color>
+    <color name="REDPASTEL">#FF746C</color>
 
 </resources>

@@ -1,15 +1,18 @@
-package com.example.tagtodoproject
+package com.example.tagtodoproject.dashboard
 
+import android.R
 import android.content.Context
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.example.tagtodoproject.data.AppDatabase
-import com.example.tagtodoproject.data.TaskEntity
 import com.example.tagtodoproject.databinding.FragmentAddGlobalTaskBinding
+import com.example.tagtodoproject.task.TaskEntity
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -17,7 +20,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 class AddGlobalTaskFragment : Fragment() {
 
@@ -46,8 +50,8 @@ class AddGlobalTaskFragment : Fragment() {
 
     private fun setupCategorySpinner() {
         val categories = listOf("Work", "School", "Exercise", "Home", "Finance")
-        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, categories)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        val adapter = ArrayAdapter(requireContext(), R.layout.simple_spinner_item, categories)
+        adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
         binding.spinnerCategory.adapter = adapter
     }
 
@@ -73,15 +77,24 @@ class AddGlobalTaskFragment : Fragment() {
     }
 
     private fun setupPrioritySelector() {
+        // Ambil nilai awal dari radio group saat fragment ditampilkan
+        selectedPriority = when (binding.rgPriority.checkedRadioButtonId) {
+            com.example.tagtodoproject.R.id.rbLow -> "Low"
+            com.example.tagtodoproject.R.id.rbMedium -> "Medium"
+            com.example.tagtodoproject.R.id.rbHigh -> "High"
+            else -> "Low"
+        }
+
         binding.rgPriority.setOnCheckedChangeListener { _, checkedId ->
             selectedPriority = when (checkedId) {
-                R.id.rbLow -> "Low"
-                R.id.rbMedium -> "Medium"
-                R.id.rbHigh -> "High"
+                com.example.tagtodoproject.R.id.rbLow -> "Low"
+                com.example.tagtodoproject.R.id.rbMedium -> "Medium"
+                com.example.tagtodoproject.R.id.rbHigh -> "High"
                 else -> "Low"
             }
         }
     }
+
 
     private fun setupSaveButton() {
         binding.btnSave.setOnClickListener {
@@ -119,7 +132,7 @@ class AddGlobalTaskFragment : Fragment() {
             )
 
             viewLifecycleOwner.lifecycleScope.launch {
-                AppDatabase.getDatabase(requireContext()).taskDao().insert(newTask)
+                AppDatabase.Companion.getDatabase(requireContext()).taskDao().insert(newTask)
 
                 withContext(Dispatchers.Main) {
                     showToast("Task berhasil disimpan!")
@@ -133,7 +146,7 @@ class AddGlobalTaskFragment : Fragment() {
         binding.etTaskTitle.text.clear()
         binding.etTag.text.clear()
         binding.spinnerCategory.setSelection(0)
-        binding.rgPriority.check(R.id.rbLow)
+        binding.rgPriority.check(com.example.tagtodoproject.R.id.rbLow)
         binding.tvSelectedDate.text = "Tanggal belum dipilih"
         selectedDate = ""
         selectedPriority = "Low"

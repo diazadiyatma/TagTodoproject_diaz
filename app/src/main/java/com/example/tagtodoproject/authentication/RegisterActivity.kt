@@ -3,14 +3,14 @@ package com.example.tagtodoproject.authentication
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
+import android.util.Patterns
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.tagtodoproject.UserDao
+import com.example.tagtodoproject.user.UserDao
 import com.example.tagtodoproject.data.AppDatabase
 import com.example.tagtodoproject.databinding.ActivityRegisterBinding
-import com.example.tagtodoproject.model.UserEntity
+import com.example.tagtodoproject.user.UserEntity
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointBackward
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -75,20 +75,33 @@ class RegisterActivity : AppCompatActivity() {
                 val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
                 selectedBirthDate = sdf.format(Date(selection))
                 binding.etBirthDate.setText(selectedBirthDate)
+                binding.etBirthDate.error = null
             }
         }
     }
 
     private fun setupListeners() {
         binding.btnRegister.setOnClickListener {
+            clearAllErrors()
             val user = collectUserInput() ?: return@setOnClickListener
-            registerUser(user)
+            checkContactUniquenessAndRegister(user)
         }
 
         binding.tvLogin.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }
+    }
+
+    private fun clearAllErrors() {
+        binding.etUsername.error = null
+        binding.etEmail.error = null
+        binding.etPassword.error = null
+        binding.etConfirmPassword.error = null
+        binding.etContact.error = null
+        binding.etLocation.error = null
+        binding.etBirthDate.error = null
+        binding.etGender.error = null
     }
 
     private fun collectUserInput(): UserEntity? {
@@ -100,17 +113,58 @@ class RegisterActivity : AppCompatActivity() {
         val location = binding.etLocation.text.toString().trim()
         val gender = binding.etGender.text.toString().trim()
 
-        if (username.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()
-            || contact.isEmpty() || location.isEmpty() || selectedBirthDate.isEmpty() || gender.isEmpty()
-        ) {
-            Toast.makeText(this, "Harap isi semua field!", Toast.LENGTH_SHORT).show()
-            return null
+        var isValid = true
+
+        if (username.isEmpty()) {
+            binding.etUsername.error = "Username wajib diisi"
+            isValid = false
         }
 
-        if (password != confirmPassword) {
-            Toast.makeText(this, "Password tidak cocok!", Toast.LENGTH_SHORT).show()
-            return null
+        if (email.isEmpty()) {
+            binding.etEmail.error = "Email wajib diisi"
+            isValid = false
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            binding.etEmail.error = "Format email tidak valid"
+            isValid = false
         }
+
+        if (password.isEmpty()) {
+            binding.etPassword.error = "Password wajib diisi"
+            isValid = false
+        } else if (!isValidPassword(password)) {
+            binding.etPassword.error = "Minimal 5 karakter, kombinasi huruf & angka"
+            isValid = false
+        }
+
+        if (confirmPassword.isEmpty()) {
+            binding.etConfirmPassword.error = "Konfirmasi password wajib diisi"
+            isValid = false
+        } else if (password != confirmPassword) {
+            binding.etConfirmPassword.error = "Password tidak cocok"
+            isValid = false
+        }
+
+        if (contact.isEmpty()) {
+            binding.etContact.error = "Kontak wajib diisi"
+            isValid = false
+        }
+
+        if (location.isEmpty()) {
+            binding.etLocation.error = "Lokasi wajib diisi"
+            isValid = false
+        }
+
+        if (selectedBirthDate.isEmpty()) {
+            binding.etBirthDate.error = "Tanggal lahir wajib diisi"
+            isValid = false
+        }
+
+        if (gender.isEmpty()) {
+            binding.etGender.error = "Gender wajib diisi"
+            isValid = false
+        }
+
+        if (!isValid) return null
 
         return UserEntity(
             username = username,
@@ -125,20 +179,39 @@ class RegisterActivity : AppCompatActivity() {
         )
     }
 
+    private fun isValidPassword(password: String): Boolean {
+        val hasLetter = password.any { it.isLetter() }
+        val hasDigit = password.any { it.isDigit() }
+        return password.length >= 5 && hasLetter && hasDigit
+    }
+
+    private fun checkContactUniquenessAndRegister(user: UserEntity) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val existingUserByEmail = userDao.getUserByEmail(user.email)
+            val existingUserByContact = userDao.getUserByContact(user.contact)
+
+            withContext(Dispatchers.Main) {
+                when {
+                    existingUserByEmail != null -> {
+                        binding.etEmail.error = "Email sudah terdaftar"
+                    }
+                    existingUserByContact != null -> {
+                        binding.etContact.error = "Kontak sudah digunakan"
+                    }
+                    else -> {
+                        registerUser(user)
+                    }
+                }
+            }
+        }
+    }
+
     private fun registerUser(user: UserEntity) {
         lifecycleScope.launch(Dispatchers.IO) {
-            val existingUser = userDao.getUserByEmail(user.email)
-            if (existingUser != null) {
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(this@RegisterActivity, "Email sudah terdaftar!", Toast.LENGTH_SHORT).show()
-                }
-            } else {
-                userDao.insertUser(user)
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(this@RegisterActivity, "Registrasi berhasil! Silakan login.", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
-                    finish()
-                }
+            userDao.insertUser(user)
+            withContext(Dispatchers.Main) {
+                startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
+                finish()
             }
         }
     }

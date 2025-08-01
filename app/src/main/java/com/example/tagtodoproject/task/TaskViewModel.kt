@@ -1,11 +1,10 @@
-package com.example.tagtodoproject.viewmodel
+package com.example.tagtodoproject.task
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tagtodoproject.data.AppDatabase
-import com.example.tagtodoproject.data.TaskEntity
-import com.example.tagtodoproject.data.TaskRepository
+import com.example.tagtodoproject.task.TaskRepository
 import kotlinx.coroutines.launch
 
 class TaskViewModel(application: Application) : AndroidViewModel(application) {
@@ -13,7 +12,7 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: TaskRepository
 
     init {
-        val dao = AppDatabase.getDatabase(application).taskDao()
+        val dao = AppDatabase.Companion.getDatabase(application).taskDao()
         repository = TaskRepository(dao)
     }
 

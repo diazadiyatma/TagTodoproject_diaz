@@ -1,48 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/scrollView"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragmentTrashRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:orientation="vertical"
     android:background="@color/lightGrey"
-    android:fillViewport="true">
+    android:padding="16dp">
 
-    <!-- ✅ Bungkus dalam LinearLayout -->
+    <!-- Header: Select All & Delete -->
     <LinearLayout
+        android:id="@+id/headerTrash"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingBottom="12dp">
 
-        <LinearLayout
-            android:id="@+id/trashContainer"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tvSelectAll"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:layout_weight="1"
+            android:text="Selected All"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:fontFamily="@font/font_poppins"
+            android:clickable="true"
+            android:focusable="true" />
 
-        <LinearLayout
-            android:id="@+id/emptyStateLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:visibility="gone"
-            android:paddingTop="48dp"
-            android:paddingBottom="48dp">
-
-            <ImageView
-                android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:src="@drawable/delete_svgrepo"
-                android:tint="@color/gray" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Trash is empty"
-                android:textSize="16sp"
-                android:textColor="@color/gray"
-                android:layout_marginTop="12dp"
-                android:fontFamily="@font/font_poppins" />
-        </LinearLayout>
+        <ImageView
+            android:id="@+id/btnDeleteSelected"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/delete_svgrepo"
+            android:tint="@color/red"
+            android:contentDescription="Delete selected" />
     </LinearLayout>
-</ScrollView>
+
+    <!-- RecyclerView Trash -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvTrash"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingTop="8dp"
+        android:clipToPadding="false" />
+
+    <!-- Empty state -->
+    <LinearLayout
+        android:id="@+id/emptyStateLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone"
+        android:paddingTop="48dp"
+        android:paddingBottom="48dp">
+
+        <ImageView
+            android:id="@+id/ivEmptyTrash"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:src="@drawable/delete_svgrepo"
+            android:tint="@color/gray" />
+
+        <TextView
+            android:id="@+id/tvEmptyTrash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Trash is empty"
+            android:textSize="16sp"
+            android:textColor="@color/gray"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/font_poppins" />
+
+    </LinearLayout>
+</LinearLayout>
