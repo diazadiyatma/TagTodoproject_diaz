@@ -12,7 +12,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.example.tagtodoproject.R
 import com.example.tagtodoproject.task.TaskEntity
 import com.example.tagtodoproject.task.TaskViewModel
@@ -66,18 +65,31 @@ class HomeFragment : Fragment() {
         }
 
         if (completedTasks.isNotEmpty()) {
-            val header = TextView(requireContext()).apply {
-                text = "Completed Tasks"
+            val completedHeader = TextView(requireContext()).apply {
+                text = "Completed Tasks ▼"
                 textSize = 16f
                 setTextColor(resources.getColor(android.R.color.darker_gray, null))
                 setPadding(16, 32, 16, 8)
             }
-            taskContainer.addView(header)
-        }
 
-        for (task in completedTasks) {
-            val itemView = createTaskItemView(task)
-            taskContainer.addView(itemView)
+            val completedContainer = LinearLayout(requireContext()).apply {
+                orientation = LinearLayout.VERTICAL
+                visibility = View.GONE
+            }
+
+            for (task in completedTasks) {
+                val itemView = createTaskItemView(task)
+                completedContainer.addView(itemView)
+            }
+
+            completedHeader.setOnClickListener {
+                val isVisible = completedContainer.visibility == View.VISIBLE
+                completedContainer.visibility = if (isVisible) View.GONE else View.VISIBLE
+                completedHeader.text = if (isVisible) "Completed Tasks ▼" else "Completed Tasks ▲"
+            }
+
+            taskContainer.addView(completedHeader)
+            taskContainer.addView(completedContainer)
         }
 
         emptyStateLayout.visibility = View.GONE
@@ -125,7 +137,6 @@ class HomeFragment : Fragment() {
                 .show()
         }
 
-        // ✅ Navigasi ke EditTaskFragment
         itemView.setOnClickListener {
             val bundle = Bundle().apply {
                 putParcelable("task", task)
@@ -133,7 +144,6 @@ class HomeFragment : Fragment() {
             val editFragment = EditTaskFragment()
             editFragment.arguments = bundle
             navigateTo(editFragment)
-
         }
 
         return itemView

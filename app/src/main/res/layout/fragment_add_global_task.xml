@@ -59,17 +59,6 @@
                 android:fontFamily="@font/font_poppins" />
         </androidx.cardview.widget.CardView>
 
-        <!-- 🧭 Kategori -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Category"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:textColor="@color/black"
-            android:layout_marginTop="6dp"
-            android:fontFamily="@font/font_poppins" />
-
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -79,19 +68,33 @@
             app:cardUseCompatPadding="true"
             app:cardBackgroundColor="@android:color/white">
 
-            <Spinner
-                android:id="@+id/spinnerCategory"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                android:padding="12dp"
-                android:background="@android:color/transparent"
-                android:spinnerMode="dropdown"
-                android:drawableEnd="@drawable/dropdown_svgrepo_com"
-                android:drawablePadding="8dp"
-                android:gravity="center_vertical" />
+                android:padding="12dp">
+
+                <!-- Spinner -->
+                <Spinner
+                    android:id="@+id/spinnerCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:spinnerMode="dropdown"
+                    android:gravity="center_vertical" />
+
+                <!-- Dropdown Icon -->
+                <ImageView
+                    android:id="@+id/iconDropdown"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/dropdown_svgrepo_com"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="8dp"
+                    android:tint="@color/black" />
+            </FrameLayout>
 
 
-        </androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
         <!-- ⚡ Prioritas -->
         <TextView
@@ -173,7 +176,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:src="@drawable/ic_calendar"
-                    android:tint="#888888"
+                    android:tint="@color/black"
                     android:contentDescription="Pilih tanggal" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>

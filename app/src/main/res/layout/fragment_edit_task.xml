@@ -92,16 +92,15 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:src="@drawable/ic_calendar"
-                    android:tint="#888888"
+                    android:tint="@color/black"
                     android:contentDescription="Select date" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- ⚡ Kategori -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Category"
+            android:text="Priority"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:layout_marginTop="6dp"
@@ -117,18 +116,29 @@
             app:cardUseCompatPadding="true"
             app:cardBackgroundColor="@android:color/white">
 
-            <Spinner
-                android:id="@+id/spinnerPriority"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                android:padding="12dp"
-                android:background="@android:color/transparent"
-                android:spinnerMode="dropdown"
-                android:drawableEnd="@drawable/dropdown_svgrepo_com"
-                android:drawablePadding="8dp"
-                android:gravity="center_vertical" />
-        </androidx.cardview.widget.CardView>
+                android:padding="12dp">
 
+                <Spinner
+                    android:id="@+id/spinnerPriority"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:spinnerMode="dropdown"
+                    android:paddingEnd="32dp"
+                    android:gravity="center_vertical" />
+
+                <ImageView
+                    android:id="@+id/ivDropdownPriority"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/dropdown_svgrepo_com"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
         <!-- ✅ Tombol Update -->
         <Button
             android:id="@+id/btnUpdate"
